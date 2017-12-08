@@ -37,7 +37,6 @@ public class CorruptionChecksumEvenlyDivisibleValues {
         ArrayList<String> newArrayList = Lists.newArrayList(split);
         System.out.println(newArrayList);
         return newArrayList;
-
     }
 
     private List<Integer> toIntList(String in) {
