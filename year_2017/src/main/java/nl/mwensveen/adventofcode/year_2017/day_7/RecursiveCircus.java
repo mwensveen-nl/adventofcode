@@ -11,7 +11,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-// TODO implement part 2
 public class RecursiveCircus {
     private List<String> lines;
 
@@ -26,12 +25,18 @@ public class RecursiveCircus {
     public int calculateNewWeight() {
         ProgramData bottomProgram = findBottomProgram();
         calculateTotalWeight(bottomProgram);
-
+        System.out.println("unbalanced");
         findUnbalanced(bottomProgram);
         return 0;
     }
 
     private void findUnbalanced(ProgramData bottomProgram) {
+        if (bottomProgram.getAbovePrograms().stream().map(p -> p.getTotalWeight()).collect(Collectors.toSet()).size() > 1) {
+            System.out.println(bottomProgram.getName());
+            bottomProgram.getAbovePrograms().stream().forEach(p -> System.out.println("  " + p.getName() + "("
+                    + p.getWeight() + ")" + " " + p.getTotalWeight()));
+            bottomProgram.getAbovePrograms().stream().forEach(p -> findUnbalanced(p));
+        }
     }
 
     private int calculateTotalWeight(ProgramData program) {

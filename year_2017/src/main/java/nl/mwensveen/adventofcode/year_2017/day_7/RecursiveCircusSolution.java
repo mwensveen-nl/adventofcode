@@ -1423,6 +1423,7 @@ public class RecursiveCircusSolution {
     public static void main(String[] args) {
         RecursiveCircus rc = new RecursiveCircus(DATA);
         System.out.println("part 1: " + rc.calculate());
+        rc.calculateNewWeight();
     }
 
 }
