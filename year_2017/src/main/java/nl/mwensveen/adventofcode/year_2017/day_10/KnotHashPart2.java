@@ -14,12 +14,8 @@ public class KnotHashPart2 {
     int position = 0;
     int skipSize = 0;
     private int numberOfElements;
-    private String lengthString;
-    private int numberOfElements2;
 
     public KnotHashPart2(String lengthString, int numberOfElements) {
-        this.lengthString = lengthString;
-        numberOfElements2 = numberOfElements;
         this.numberOfElements = numberOfElements;
         lengths = toIntList(lengthString);
     }
