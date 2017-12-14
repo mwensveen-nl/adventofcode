@@ -6,7 +6,7 @@ public class KnotHashSolution {
         KnotHash knotHash = new KnotHash("94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243", 256);
         System.out.println("Part one: " + knotHash.Calculate());
         KnotHashPart2 knotHash2 = new KnotHashPart2("94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243", 256);
-        System.out.println("Part one: " + knotHash2.Calculate());
+        System.out.println("Part two: " + knotHash2.Calculate());
     }
 
 }
