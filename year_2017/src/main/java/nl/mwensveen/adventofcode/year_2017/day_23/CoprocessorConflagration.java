@@ -48,6 +48,7 @@ public class CoprocessorConflagration {
                         instructionValue = getValueOrUseLong(instruction.getValue());
                         i = i + instructionValue.intValue();
                         if (i >= instructions.size()) {
+                            System.out.println();
                             return counter;
                         }
                         i--;
@@ -58,52 +59,6 @@ public class CoprocessorConflagration {
             }
             i++;
         }
-
-    }
-
-    public Long calculateNoDebug() {
-        int i = 0;
-        registers.put("a", Long.valueOf(1L));
-
-        for (int c = 0; c < 100; c++) {
-            System.out.print(i);
-            Instruction instruction = instructions.get(i);
-            // System.out.println(instruction);
-            Long value = null;
-            Long instructionValue = null;
-            switch (instruction.getCommand()) {
-                case SET:
-                    instructionValue = getValueOrUseLong(instruction.getValue());
-                    setValueOfRegister(instruction.getRegister(), instructionValue);
-                    break;
-                case DECREASE:
-                    value = getValueFromRegister(instruction.getRegister());
-                    instructionValue = getValueOrUseLong(instruction.getValue());
-                    setValueOfRegister(instruction.getRegister(), value.longValue() - instructionValue.longValue());
-                    break;
-                case MULTIPLY:
-                    value = getValueFromRegister(instruction.getRegister());
-                    instructionValue = getValueOrUseLong(instruction.getValue());
-                    setValueOfRegister(instruction.getRegister(), value.longValue() * instructionValue.longValue());
-                    break;
-                case JUMP:
-                    value = getValueOrUseLong(instruction.getRegister());
-                    if (value != Long.valueOf(0)) {
-                        instructionValue = getValueOrUseLong(instruction.getValue());
-                        i = i + instructionValue.intValue();
-                        if (i >= instructions.size()) {
-                            return getValueFromRegister("h");
-                        }
-                        i--;
-                    }
-                    break;
-                default:
-                    throw new RuntimeException("Instruction not implemented  " + instruction);
-            }
-            i++;
-            System.out.println();
-        }
-        return getValueFromRegister("h");
     }
 
     private Instruction toInstruction(String input) {

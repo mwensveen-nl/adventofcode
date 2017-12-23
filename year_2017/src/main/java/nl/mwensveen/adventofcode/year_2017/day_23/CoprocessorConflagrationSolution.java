@@ -37,10 +37,10 @@ public class CoprocessorConflagrationSolution {
 
     public static void main(String[] args) {
         CoprocessorConflagration coprocessorConflagration = new CoprocessorConflagration(INPUT);
-        // System.out.println("Part 1: " + coprocessorConflagration.calculate());
-        // coprocessorConflagration = new CoprocessorConflagration(INPUT);
-        System.out.println("Part 2: " + coprocessorConflagration.calculateNoDebug());
+        System.out.println("Part 1: " + coprocessorConflagration.calculate());
 
+        CoprocessorConflagrationNoDebug coprocessorConflagrationNoDebug = new CoprocessorConflagrationNoDebug();
+        System.out.println("Part 2: " + coprocessorConflagrationNoDebug.calculate());
     }
 
 }
