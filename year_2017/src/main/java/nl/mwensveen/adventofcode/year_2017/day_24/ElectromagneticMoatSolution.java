@@ -61,5 +61,7 @@ public class ElectromagneticMoatSolution {
     public static void main(String[] args) {
         ElectromagneticMoat electromagneticMoat = new ElectromagneticMoat(INPUT);
         System.out.println("Part 1: " + electromagneticMoat.calculate());
+        electromagneticMoat = new ElectromagneticMoat(INPUT);
+        System.out.println("Part 2: " + electromagneticMoat.calculateLongestBridge());
     }
 }

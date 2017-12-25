@@ -10,24 +10,41 @@ public class ElectromagneticMoat {
 
     private List<Component> components;
     private int maxStrength = 0;
+    private int maxSize = 0;
+    private int maxStrengthOfMaxSize = 0;
 
     public ElectromagneticMoat(String input) {
         components = toComponentsList(input);
     }
 
     public int calculate() {
-        processPort("0", components, 0);
+        processPort("0", components, 0, 0);
         return maxStrength;
     }
 
-    private void processPort(String port, List<Component> leftComponents, int currentStrength) {
+    public int calculateLongestBridge() {
+        processPort("0", components, 0, 0);
+        return maxStrengthOfMaxSize;
+    }
+
+    private void processPort(String port, List<Component> leftComponents, int currentStrength, int currentSize) {
         for (Component component : leftComponents) {
             if (component.hasPort(port)) {
+                // part 1
                 int newStrenght = currentStrength + component.strenght();
                 maxStrength = Math.max(maxStrength, newStrenght);
-                processPort(component.otherPort(port), removeComponentFromList(component, leftComponents), newStrenght);
+                // part 2
+                int newSize = currentSize + 1;
+                if (newSize > maxSize) {
+                    maxSize = newSize;
+                    maxStrengthOfMaxSize = newStrenght;
+                } else if (newSize == maxSize) {
+                    maxStrengthOfMaxSize = Math.max(maxStrengthOfMaxSize, newStrenght);
+                }
+                processPort(component.otherPort(port), removeComponentFromList(component, leftComponents), newStrenght, newSize);
             }
         }
+
     }
 
     private List<Component> removeComponentFromList(Component component, List<Component> leftComponents) {

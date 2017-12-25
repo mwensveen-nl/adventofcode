@@ -16,5 +16,6 @@ public class ElectromagneticMoatTest {
                 "10/1\n" +
                 "9/10");
         Assert.assertEquals(31, electromagneticMoat.calculate());
+        Assert.assertEquals(19, electromagneticMoat.calculateLongestBridge());
     }
 }
