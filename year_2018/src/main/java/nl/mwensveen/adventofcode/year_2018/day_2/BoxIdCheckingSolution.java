@@ -12,7 +12,7 @@ import java.util.List;
 public class BoxIdCheckingSolution {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        URL url = Resources.getResource("Part1.txt");
+        URL url = Resources.getResource("Day2.txt");
         List<String> lines = Files.readLines(new File(url.getFile()), Charset.defaultCharset());
 
         ChecksumCalculator calculator = new ChecksumCalculator(lines);
