@@ -2,11 +2,11 @@ package nl.mwensveen.adventofcode.year_2019.day_01;
 
 import java.util.List;
 
-import nl.mwensveen.adventofcode.year_2019.AbstractFileReadLinesSolution;
+import nl.mwensveen.adventofcode.year_2019.FileReadHelper;
 
-public class FuelRequirementsSolution extends AbstractFileReadLinesSolution {
+public class FuelRequirementsSolution {
 	public static void main(String[] args) {
-		List<String> input = read("Day01.txt");
+		List<String> input = FileReadHelper.readLines("Day01.txt");
 
 		FuelRequirementsCalculator calculator = new FuelRequirementsCalculator();
 		int fuelReququirements = calculator.calculateFuelReququirementsForModules(input);
