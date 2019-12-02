@@ -11,13 +11,13 @@ public abstract class AbstractTimedSolution {
 		part1();
 
 		Instant finishOne = Instant.now();
-		System.err.println("Duration part one " + Duration.between(start, finishOne).toMillis() + " millisecond");
+		System.err.println("Duration part one " + Duration.between(start, finishOne).toString());
 
 		part2();
 
 		Instant finishTwo = Instant.now();
-		System.err.println("Duration part two " + Duration.between(finishOne, finishTwo).toMillis() + " millisecond");
-		System.err.println("Duration Total    " + Duration.between(start, finishTwo).toMillis() + " millisecond");
+		System.err.println("Duration part two " + Duration.between(finishOne, finishTwo).toString());
+		System.err.println("Duration Total    " + Duration.between(start, finishTwo).toString());
 	}
 
 	protected abstract void part1();
