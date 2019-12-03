@@ -18,7 +18,6 @@ public class CrossWiredCalculator {
     public int calculateMinStepsToIntersection(List<String> lines) {
         Table<Integer, Integer, Integer> wireOne = procesWire(lines.get(0));
         Table<Integer, Integer, Integer> wireTwo = procesWire(lines.get(1));
-
         OptionalInt min = wireOne.cellSet().stream().filter(cell -> wireTwo.contains(cell.getRowKey(), cell.getColumnKey()))
                 .mapToInt(cell -> (cell.getValue().intValue() + wireTwo.get(cell.getRowKey(), cell.getColumnKey()).intValue())).min();
         return min.getAsInt();
