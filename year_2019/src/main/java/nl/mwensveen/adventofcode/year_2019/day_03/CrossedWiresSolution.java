@@ -1,7 +1,6 @@
 package nl.mwensveen.adventofcode.year_2019.day_03;
 
 import java.util.List;
-import java.util.OptionalInt;
 import nl.mwensveen.adventofcode.year_2019.AbstractTimedSolution;
 import nl.mwensveen.adventofcode.year_2019.FileReadHelper;
 
@@ -17,9 +16,9 @@ public class CrossedWiresSolution extends AbstractTimedSolution {
     protected void part1() {
         List<String> lines = FileReadHelper.readLines("Day03.txt");
         CrossWiredCalculator crossWiredCalculator = new CrossWiredCalculator();
-        OptionalInt distance = crossWiredCalculator.calculateManhattenDistanceOfNearestIntersection(lines);
+        int distance = crossWiredCalculator.calculateManhattenDistanceOfNearestIntersection(lines);
 
-        System.out.println("Manhatten distance to nearest crossing " + distance.getAsInt());
+        System.out.println("Manhatten distance to nearest crossing " + distance);
     }
 
     @Override
