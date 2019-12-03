@@ -8,5 +8,6 @@
   <modules>
       <module>year_2017</module>
       <module>year_2018</module>
+      <module>year_2019</module>
   </modules>
 </project>
