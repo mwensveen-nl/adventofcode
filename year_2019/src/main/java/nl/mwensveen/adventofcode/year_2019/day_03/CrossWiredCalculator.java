@@ -34,38 +34,32 @@ public class CrossWiredCalculator {
             Integer size = Integer.valueOf(step.substring(1));
             switch (direction) {
                 case "R":
-                    for (int i = 0; i < size; i++) {
-                        coordinate = new Coordinate(coordinate.getX() + 1, coordinate.getY());
-                        setStepInGrid(grid, coordinate, counter);
-                        counter++;
-                    }
+                    coordinate = drawLine(grid, size, coordinate, 1, 0, counter);
                     break;
                 case "L":
-                    for (int i = 0; i < size; i++) {
-                        coordinate = new Coordinate(coordinate.getX() - 1, coordinate.getY());
-                        setStepInGrid(grid, coordinate, counter);
-                        counter++;
-                    }
+                    coordinate = drawLine(grid, size, coordinate, -1, 0, counter);
                     break;
                 case "U":
-                    for (int i = 0; i < size; i++) {
-                        coordinate = new Coordinate(coordinate.getX(), coordinate.getY() + 1);
-                        setStepInGrid(grid, coordinate, counter);
-                        counter++;
-                    }
+                    coordinate = drawLine(grid, size, coordinate, 0, 1, counter);
                     break;
                 case "D":
-                    for (int i = 0; i < size; i++) {
-                        coordinate = new Coordinate(coordinate.getX(), coordinate.getY() - 1);
-                        setStepInGrid(grid, coordinate, counter);
-                        counter++;
-                    }
+                    coordinate = drawLine(grid, size, coordinate, 0, -1, counter);
                     break;
                 default:
                     throw new RuntimeException("invalid direction " + direction);
             }
+            counter += size;
         }
         return grid;
+    }
+
+    private Coordinate drawLine(Table<Integer, Integer, Integer> grid, Integer size, Coordinate coordinate, int addX, int addY, int counter) {
+        Coordinate newCoordinate = coordinate;
+        for (int i = 0; i < size; i++) {
+            newCoordinate = new Coordinate(newCoordinate.getX() + addX, newCoordinate.getY() + addY);
+            setStepInGrid(grid, newCoordinate, counter + i);
+        }
+        return newCoordinate;
     }
 
     private void setStepInGrid(Table<Integer, Integer, Integer> grid, Coordinate coordinate, int counter) {
