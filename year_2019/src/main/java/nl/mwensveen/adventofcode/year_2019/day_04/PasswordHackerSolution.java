@@ -22,8 +22,11 @@ public class PasswordHackerSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        int count = 0;
+        for (int i = RANGE_LOW; i < RANGE_HIGH + 1; i++) {
+            count += PasswordChecker.checkWithoutLongGroup(i) ? 1 : 0;
+        }
+        System.out.println("Number of correct passwords with larger group check between " + RANGE_LOW + " and " + RANGE_HIGH + " = " + count);
     }
 
 }

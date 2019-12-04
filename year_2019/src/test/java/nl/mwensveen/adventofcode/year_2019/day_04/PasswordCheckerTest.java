@@ -14,4 +14,12 @@ public class PasswordCheckerTest {
         assertFalse(PasswordChecker.check(123789));
     }
 
+    @Test
+    public void testCheckWithoutLongGroup() throws Exception {
+        assertTrue(PasswordChecker.checkWithoutLongGroup(112233));
+        assertFalse(PasswordChecker.checkWithoutLongGroup(123444));
+        assertTrue(PasswordChecker.checkWithoutLongGroup(111122));
+        assertTrue(PasswordChecker.checkWithoutLongGroup(112222));
+    }
+
 }
