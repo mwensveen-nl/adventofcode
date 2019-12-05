@@ -1,0 +1,37 @@
+package nl.mwensveen.adventofcode.year_2019.day_05;
+
+import com.google.common.base.Strings;
+
+public class Instruction {
+
+    String base;
+    private Opcode opcode;
+    private ParameterMode parameterMode1;
+    private ParameterMode parameterMode2;
+    private ParameterMode parameterMode3;
+
+    public Instruction(Integer baseValue) {
+        this.base = Strings.padStart(Integer.toString(baseValue), 5, '0');
+        opcode = Opcode.valueOf(Integer.parseInt(this.base.substring(3)));
+        parameterMode1 = ParameterMode.valueOf(Integer.parseInt(this.base.substring(2, 3)));
+        parameterMode2 = ParameterMode.valueOf(Integer.parseInt(this.base.substring(1, 2)));
+        parameterMode3 = ParameterMode.valueOf(Integer.parseInt(this.base.substring(0, 1)));
+    }
+
+    public Opcode getOpcode() {
+        return opcode;
+    }
+
+    public ParameterMode getParameterMode1() {
+        return parameterMode1;
+    }
+
+    public ParameterMode getParameterMode2() {
+        return parameterMode2;
+    }
+
+    public ParameterMode getParameterMode3() {
+        return parameterMode3;
+    }
+
+}
