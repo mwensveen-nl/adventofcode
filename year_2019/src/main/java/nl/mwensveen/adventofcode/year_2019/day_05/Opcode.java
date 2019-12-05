@@ -5,6 +5,10 @@ public enum Opcode {
     MULTIPLY(2, 3),
     INPUT(3, 1),
     OUTPUT(4, 1),
+    JUMP_IF_TRUE(5, 2),
+    JUMP_IF_FALSE(6, 2),
+    LESS_THEN(7, 3),
+    EQUALS(8, 3),
     STOP(99, 0);
 
     private int code;
