@@ -70,6 +70,7 @@ public class IntcodeProgram {
         int value1 = getParam1(list, index, inst);
         int value2 = getParam2(list, index, inst);
         int value3 = list.get(index + 3);
+        // int value3 = getParam3(list, index, inst);
         if (value1 < value2) {
             list.set(value3, 1);
         } else {
@@ -94,9 +95,9 @@ public class IntcodeProgram {
     }
 
     private void output(List<Integer> list, int index, Instruction inst) {
-        int value1 = list.get(index + 1);
-        System.err.println(list.get(value1));
-        result = list.get(value1);
+        int value1 = getParam1(list, index, inst);
+        System.err.println(value1);
+        result = value1;
     }
 
     private void input(List<Integer> list, int index, Instruction inst) {
@@ -122,10 +123,10 @@ public class IntcodeProgram {
         return inst.getParameterMode2() == ParameterMode.IMMEDIATE ? parm2 : list.get(parm2);
     }
 
-    // private int getParam3(List<Integer> list, int index, Instruction inst) {
-    // int parm3 = list.get(index + 3);
-    // return inst.getParameterMode3() == ParameterMode.POSITION ? parm3 : list.get(parm3);
-    // }
+    private int getParam3(List<Integer> list, int index, Instruction inst) {
+        int parm3 = list.get(index + 3);
+        return inst.getParameterMode3() == ParameterMode.IMMEDIATE ? parm3 : list.get(parm3);
+    }
 
     private void multiply(List<Integer> list, int index, Instruction inst) {
         int value1 = getParam1(list, index, inst);

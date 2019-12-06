@@ -1,5 +1,6 @@
 package nl.mwensveen.adventofcode.year_2019.day_05;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 
 public class Instruction {
@@ -9,6 +10,12 @@ public class Instruction {
     private ParameterMode parameterMode1;
     private ParameterMode parameterMode2;
     private ParameterMode parameterMode3;
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("base", base).add("opcode", opcode).add("parameterMode1", parameterMode1)
+                .add("parameterMode2", parameterMode2).add("parameterMode3", parameterMode3).toString();
+    }
 
     public Instruction(Integer baseValue) {
         this.base = Strings.padStart(Integer.toString(baseValue), 5, '0');
