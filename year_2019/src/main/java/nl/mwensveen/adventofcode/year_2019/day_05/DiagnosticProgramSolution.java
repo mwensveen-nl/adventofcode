@@ -23,6 +23,7 @@ public class DiagnosticProgramSolution extends AbstractTimedSolution {
     @Override
     protected void part2() {
         List<Integer> integers = FileReadHelper.readCSVIntegers("Day05.txt");
+        // List<Integer> integers = FileReadHelper.readCSVIntegers("Day5_Rogier.txt");
         IntcodeProgram intcodeProgram = new IntcodeProgram(5);
         Integer result = intcodeProgram.process(integers);
 
