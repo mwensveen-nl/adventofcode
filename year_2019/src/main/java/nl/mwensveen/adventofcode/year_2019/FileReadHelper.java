@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,5 +46,20 @@ public final class FileReadHelper {
             throw new RuntimeException(e);
         }
         return all;
+    }
+
+    public static List<Integer> readStringAsIntegers(String fileName) {
+
+        URL url = Resources.getResource(fileName);
+        List<Integer> ints = new ArrayList<>();
+        try {
+            String all = Files.asCharSource(new File(url.getFile()), Charset.defaultCharset()).read();
+            for (int i = 0; i < all.length(); i++) {
+                ints.add(Integer.parseInt(all.substring(i, i + 1)));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ints;
     }
 }
