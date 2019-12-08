@@ -20,8 +20,10 @@ public class SpaceImageFormatSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        ImageDecoder decoder = new ImageDecoder();
+        Image image = decoder.decodeImage(FileReadHelper.readStringAsIntegers("Day08.txt"), 25, 6);
+        ImageRenderer imageRenderer = new ImageRenderer(image, 25, 6);
+        imageRenderer.renderImage();
     }
 
 }

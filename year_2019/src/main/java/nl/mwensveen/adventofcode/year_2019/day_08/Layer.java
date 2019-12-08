@@ -49,4 +49,8 @@ public class Layer {
         }
         return n;
     }
+
+    public List<Integer> getRow(int i) {
+        return rows.get(i);
+    }
 }
