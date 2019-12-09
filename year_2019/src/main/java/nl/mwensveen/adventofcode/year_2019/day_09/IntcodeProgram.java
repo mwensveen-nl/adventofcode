@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public class IntcodeProgram {
-    private BigInteger inputValue = BigInteger.ONE;
+    private static final BigInteger ONE = BigInteger.ONE;
+    private static final BigInteger TWO = BigInteger.TWO;
+    private static final BigInteger THREE = BigInteger.valueOf(3);
+    private BigInteger inputValue = ONE;
     private BigInteger result = BigInteger.valueOf(Integer.MIN_VALUE);
     private BigInteger relativeBase = BigInteger.ZERO;
 
@@ -25,19 +28,19 @@ public class IntcodeProgram {
             switch (opcode) {
                 case ADD:
                     add(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 case MULTIPLY:
                     multiply(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 case INPUT:
                     input(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 case OUTPUT:
                     output(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 case JUMP_IF_TRUE:
                     i = jumpIfTrue(program, i, inst);
@@ -47,19 +50,20 @@ public class IntcodeProgram {
                     break;
                 case LESS_THEN:
                     lessThen(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 case EQUALS:
                     equals(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 case RELATIVE_BASE:
                     adjustsRelativeBase(program, i, inst);
-                    i = i.add(BigInteger.ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
                     break;
                 default:
                     throw new RuntimeException("Cannot process opcode: " + opcode);
             }
+            System.err.println("index " + i + ": ");
             inst = new Instruction(get(program, i));
             opcode = inst.getOpcode();
         }
@@ -67,80 +71,121 @@ public class IntcodeProgram {
     }
 
     private void adjustsRelativeBase(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
+        BigInteger value1 = getInputParam1(program, index, inst);
         relativeBase = relativeBase.add(value1);
+        System.err.println("adjustsRelativeBase +" + value1 + " -> " + relativeBase);
     }
 
     private void equals(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
-        BigInteger value2 = getParam2(program, index, inst);
-        BigInteger value3 = get(program, index.add(BigInteger.valueOf(3)));
+        BigInteger value1 = getInputParam1(program, index, inst);
+        BigInteger value2 = getInputParam2(program, index, inst);
+        BigInteger value3 = getOutputParam3(program, index, inst);
+        // BigInteger value3 = get(program, index.add(THREE));
+        BigInteger value = null;
         if (value1.compareTo(value2) == 0) {
-            program.put(value3, BigInteger.ONE);
+            value = ONE;
         } else {
-            program.put(value3, BigInteger.ZERO);
+            value = BigInteger.ZERO;
         }
+        program.put(value3, value);
+        // System.err.println("equals pos " + value3 + " -> " + value);
+        // System.err.println(value1 + " =? " + value2);
     }
 
     private void lessThen(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
-        BigInteger value2 = getParam2(program, index, inst);
-        BigInteger value3 = get(program, index.add(BigInteger.valueOf(3)));
+        BigInteger value1 = getInputParam1(program, index, inst);
+        BigInteger value2 = getInputParam2(program, index, inst);
+        BigInteger value3 = getOutputParam3(program, index, inst);
+        // BigInteger value3 = get(program, index.add(THREE));
+        BigInteger value = null;
         if (value1.compareTo(value2) < 0) {
-            program.put(value3, BigInteger.ONE);
+            value = ONE;
         } else {
-            program.put(value3, BigInteger.ZERO);
+            value = BigInteger.ZERO;
         }
+        program.put(value3, value);
+        // System.err.println("lessThen pos " + value3 + " -> " + value);
     }
 
     private BigInteger jumpIfFalse(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
+        BigInteger value1 = getInputParam1(program, index, inst);
         if (value1.equals(BigInteger.ZERO)) {
-            return getParam2(program, index, inst);
+            return getInputParam2(program, index, inst);
         }
-        return index.add(BigInteger.valueOf(3));
+        BigInteger add = index.add(ONE).add(BigInteger.valueOf(inst.getOpcode().getNumberOfParameters()));
+        // System.err.println("jumpIfFalse " + value1 + ", index -> " + add);
+        return add;
     }
 
     private BigInteger jumpIfTrue(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
+        BigInteger value1 = getInputParam1(program, index, inst);
         if (!value1.equals(BigInteger.ZERO)) {
-            return getParam2(program, index, inst);
+            return getInputParam2(program, index, inst);
         }
-        return index.add(BigInteger.ONE).add(BigInteger.valueOf(inst.getOpcode().getNumberOfParameters()));
+        BigInteger add = index.add(ONE).add(BigInteger.valueOf(inst.getOpcode().getNumberOfParameters()));
+        // System.err.println("jumpIfTrue " + value1 + ", index -> " + add);
+        return add;
     }
 
     private void output(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
-        System.err.println(value1);
+        BigInteger value1 = getInputParam1(program, index, inst);
+        System.err.println("Output " + value1);
         result = value1;
     }
 
     private void input(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
+        BigInteger value1 = getOutputParam1(program, index, inst);
         program.put(value1, inputValue);
+        // System.err.println("Input pos " + value1 + " -> " + inputValue);
     }
 
     private void add(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
-        BigInteger value2 = getParam2(program, index, inst);
-        BigInteger value3 = get(program, index.add(BigInteger.valueOf(3)));
+        BigInteger value1 = getInputParam1(program, index, inst);
+        BigInteger value2 = getInputParam2(program, index, inst);
+        BigInteger value3 = getOutputParam3(program, index, inst);
+        // BigInteger value3 = get(program, index.add(THREE));
 
-        program.put(value3, value1.add(value2));
+        BigInteger value = value1.add(value2);
+        program.put(value3, value);
+        // System.err.println("Add pos " + value3 + " -> " + value);
     }
 
-    private BigInteger getParam1(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        return getParam(program, get(program, index.add(BigInteger.ONE)), inst.getParameterMode1());
+    private void multiply(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
+        BigInteger value1 = getInputParam1(program, index, inst);
+        BigInteger value2 = getInputParam2(program, index, inst);
+        BigInteger value3 = getOutputParam3(program, index, inst);
+        // BigInteger value3 = get(program, index.add(THREE));
+
+        BigInteger value = value1.multiply(value2);
+        program.put(value3, value);
+        // System.err.println("Multiply pos " + value3 + " -> " + value);
     }
 
-    private BigInteger getParam2(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        return getParam(program, get(program, index.add(BigInteger.TWO)), inst.getParameterMode2());
+    private BigInteger getInputParam1(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
+        return getInputParam(program, get(program, index.add(ONE)), inst.getParameterMode1());
     }
 
-    private BigInteger getParam3(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        return getParam(program, get(program, index.add(BigInteger.valueOf(3))), inst.getParameterMode3());
+    private BigInteger getOutputParam1(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
+        return getOutputParam(program, inst.getParameterMode1(), index.add(ONE));
     }
 
-    private BigInteger getParam(Map<BigInteger, BigInteger> program, BigInteger param, ParameterMode parameterMode) {
+    private BigInteger getOutputParam(Map<BigInteger, BigInteger> program, ParameterMode parameterMode, BigInteger i) {
+        BigInteger param = get(program, i);
+        if (parameterMode.equals(ParameterMode.RELATIVE)) {
+            return param.add(relativeBase);
+        }
+        return param;
+    }
+
+    private BigInteger getInputParam2(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
+        return getInputParam(program, get(program, index.add(TWO)), inst.getParameterMode2());
+    }
+
+    private BigInteger getOutputParam3(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
+        return getOutputParam(program, inst.getParameterMode3(), index.add(THREE));
+    }
+
+    private BigInteger getInputParam(Map<BigInteger, BigInteger> program, BigInteger param, ParameterMode parameterMode) {
         switch (parameterMode) {
             case IMMEDIATE:
                 return param;
@@ -153,19 +198,11 @@ public class IntcodeProgram {
         }
     }
 
-    private void multiply(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
-        BigInteger value1 = getParam1(program, index, inst);
-        BigInteger value2 = getParam2(program, index, inst);
-        BigInteger value3 = get(program, index.add(BigInteger.valueOf(3)));
-
-        program.put(value3, value1.multiply(value2));
-    }
-
     private BigInteger get(Map<BigInteger, BigInteger> program, BigInteger i) {
         if (program.containsKey(i)) {
             return program.get(i);
         }
-        return BigInteger.valueOf(0);
+        return BigInteger.ZERO;
     }
 
 }
