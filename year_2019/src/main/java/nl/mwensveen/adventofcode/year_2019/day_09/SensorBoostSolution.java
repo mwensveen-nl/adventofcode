@@ -19,7 +19,9 @@ public class SensorBoostSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        IntcodeProgram intcodeProgram = new IntcodeProgram(2);
+        BigInteger result = intcodeProgram.process(FileReadHelper.readCSVBigIntegers("Day09.txt"));
+        System.out.println("Sensor Boost Key part 2: " + result);
 
     }
 

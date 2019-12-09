@@ -10,7 +10,7 @@ public class IntcodeProgram {
     private static final BigInteger ONE = BigInteger.ONE;
     private static final BigInteger TWO = BigInteger.TWO;
     private static final BigInteger THREE = BigInteger.valueOf(3);
-    private BigInteger inputValue = ONE;
+    private final BigInteger inputValue;
     private BigInteger result = BigInteger.valueOf(Integer.MIN_VALUE);
     private BigInteger relativeBase = BigInteger.ZERO;
 
@@ -28,19 +28,19 @@ public class IntcodeProgram {
             switch (opcode) {
                 case ADD:
                     add(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = jumpIndex(i, opcode);
                     break;
                 case MULTIPLY:
                     multiply(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = jumpIndex(i, opcode);
                     break;
                 case INPUT:
                     input(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = jumpIndex(i, opcode);
                     break;
                 case OUTPUT:
-                    output(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    result = output(program, i, inst);
+                    i = jumpIndex(i, opcode);
                     break;
                 case JUMP_IF_TRUE:
                     i = jumpIfTrue(program, i, inst);
@@ -50,30 +50,32 @@ public class IntcodeProgram {
                     break;
                 case LESS_THEN:
                     lessThen(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = jumpIndex(i, opcode);
                     break;
                 case EQUALS:
                     equals(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = jumpIndex(i, opcode);
                     break;
                 case RELATIVE_BASE:
                     adjustsRelativeBase(program, i, inst);
-                    i = i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+                    i = jumpIndex(i, opcode);
                     break;
                 default:
                     throw new RuntimeException("Cannot process opcode: " + opcode);
             }
-            System.err.println("index " + i + ": ");
             inst = new Instruction(get(program, i));
             opcode = inst.getOpcode();
         }
         return result;
     }
 
+    private BigInteger jumpIndex(BigInteger i, Opcode opcode) {
+        return i.add(ONE).add(BigInteger.valueOf(opcode.getNumberOfParameters()));
+    }
+
     private void adjustsRelativeBase(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
         BigInteger value1 = getInputParam1(program, index, inst);
         relativeBase = relativeBase.add(value1);
-        System.err.println("adjustsRelativeBase +" + value1 + " -> " + relativeBase);
     }
 
     private void equals(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
@@ -88,8 +90,6 @@ public class IntcodeProgram {
             value = BigInteger.ZERO;
         }
         program.put(value3, value);
-        // System.err.println("equals pos " + value3 + " -> " + value);
-        // System.err.println(value1 + " =? " + value2);
     }
 
     private void lessThen(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
@@ -104,7 +104,6 @@ public class IntcodeProgram {
             value = BigInteger.ZERO;
         }
         program.put(value3, value);
-        // System.err.println("lessThen pos " + value3 + " -> " + value);
     }
 
     private BigInteger jumpIfFalse(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
@@ -112,9 +111,7 @@ public class IntcodeProgram {
         if (value1.equals(BigInteger.ZERO)) {
             return getInputParam2(program, index, inst);
         }
-        BigInteger add = index.add(ONE).add(BigInteger.valueOf(inst.getOpcode().getNumberOfParameters()));
-        // System.err.println("jumpIfFalse " + value1 + ", index -> " + add);
-        return add;
+        return jumpIndex(index, inst.getOpcode());
     }
 
     private BigInteger jumpIfTrue(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
@@ -122,15 +119,13 @@ public class IntcodeProgram {
         if (!value1.equals(BigInteger.ZERO)) {
             return getInputParam2(program, index, inst);
         }
-        BigInteger add = index.add(ONE).add(BigInteger.valueOf(inst.getOpcode().getNumberOfParameters()));
-        // System.err.println("jumpIfTrue " + value1 + ", index -> " + add);
-        return add;
+        return jumpIndex(index, inst.getOpcode());
     }
 
-    private void output(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
+    private BigInteger output(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
         BigInteger value1 = getInputParam1(program, index, inst);
         System.err.println("Output " + value1);
-        result = value1;
+        return value1;
     }
 
     private void input(Map<BigInteger, BigInteger> program, BigInteger index, Instruction inst) {
