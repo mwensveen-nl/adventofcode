@@ -4,6 +4,7 @@ import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -36,6 +37,18 @@ public final class FileReadHelper {
         return Stream.of(line.split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
 
+    public static List<BigInteger> readCSVBigIntegers(String fileName) {
+
+        URL url = Resources.getResource(fileName);
+        String line;
+        try {
+            line = Files.asCharSource(new File(url.getFile()), Charset.defaultCharset()).readFirstLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return Stream.of(line.split(",")).map(s -> new BigInteger(s)).collect(Collectors.toList());
+    }
+
     public static String readString(String fileName) {
 
         URL url = Resources.getResource(fileName);
@@ -49,7 +62,6 @@ public final class FileReadHelper {
     }
 
     public static List<Integer> readStringAsIntegers(String fileName) {
-
         URL url = Resources.getResource(fileName);
         List<Integer> ints = new ArrayList<>();
         try {
@@ -62,4 +74,5 @@ public final class FileReadHelper {
         }
         return ints;
     }
+
 }

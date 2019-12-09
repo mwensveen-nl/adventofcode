@@ -43,4 +43,9 @@ public class IntcodeProgramTest {
         assertEquals(3, result);
         assertTrue(prog.isExit());
     }
+
+    @Test
+    public void testProcess() throws Exception {
+        throw new RuntimeException("not yet implemented");
+    }
 }
