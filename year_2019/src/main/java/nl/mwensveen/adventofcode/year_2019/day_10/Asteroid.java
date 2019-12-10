@@ -10,6 +10,14 @@ public class Asteroid {
     private final Set<Asteroid> detectable = new HashSet<>();
     private final Set<Asteroid> notDetectable = new HashSet<>();
 
+    private double angleFromBase = 0;
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("point", point).add("angleFromBase", angleFromBase).add("detectable", detectable.size())
+                .add("notDetectable", notDetectable.size()).toString();
+    }
+
     public Asteroid(Point point) {
         super();
         this.point = point;
@@ -27,9 +35,17 @@ public class Asteroid {
         return notDetectable;
     }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this).add("point", point).add("detectable", detectable.size()).add("notDetectable", notDetectable.size()).toString();
+    public double getAngleFromBase() {
+        return angleFromBase;
+    }
+
+    public void setAngleFromBase(double angleFromBase) {
+        this.angleFromBase = angleFromBase;
+    }
+
+    public void resetDetectable() {
+        detectable.clear();
+        notDetectable.clear();
     }
 
 }

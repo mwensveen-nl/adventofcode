@@ -1,20 +1,39 @@
 package nl.mwensveen.adventofcode.year_2019.day_10;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 public class LineCalculator {
-    private BigDecimal m;
-    private BigDecimal b;
     private Point one;
     private Point two;
-    private BigDecimal x;
-    private BigDecimal y;
-    private BigDecimal xEnd;
-    private BigDecimal yEnd;
     private boolean vertical = false;
+    private int quotients;
+    private int remainder;
+    private int counter = 0;
+    private int xDiff;
+    private int yDiff;
 
     public LineCalculator(Point one, Point two) {
+        if (one.getX() == two.getX()) {
+            vertical = true;
+            setForVertical(one, two);
+        } else {
+            setForLine(one, two);
+            initLine();
+        }
+    }
+
+    private void setForVertical(Point one, Point two) {
+        if (one.getY() > two.getY()) {
+            this.one = two;
+            this.two = one;
+        } else {
+            this.one = one;
+            this.two = two;
+        }
+        yDiff = this.two.getY() - this.one.getY();
+    }
+
+    private void setForLine(Point one, Point two) {
         if (one.getX() > two.getX()) {
             this.one = two;
             this.two = one;
@@ -22,56 +41,33 @@ public class LineCalculator {
             this.one = one;
             this.two = two;
         }
-        initLine();
-        x = new BigDecimal(this.one.getX());
-        xEnd = new BigDecimal(this.two.getX());
-        if (one.getY() > two.getY()) {
-            y = new BigDecimal(two.getY());
-            yEnd = new BigDecimal(one.getY());
-        } else {
-            y = new BigDecimal(one.getY());
-            yEnd = new BigDecimal(two.getY());
-        }
     }
 
     private void initLine() {
-        // y = mx+b
-        // m = (y2-y1)/(x2-x1)
-        // b = y1 - (mx1)
+        xDiff = two.getX() - one.getX();
+        yDiff = two.getY() - one.getY();
+        quotients = yDiff / xDiff;
+        remainder = yDiff % xDiff;
 
-        int xDiff = two.getX() - one.getX();
-        if (xDiff == 0) {
-            vertical = true;
-
-        } else {
-            m = new BigDecimal((0.0 + two.getY() - one.getY()) / xDiff);
-            b = new BigDecimal(one.getY()).subtract(m.multiply(new BigDecimal(one.getX())));
-        }
-
-        System.out.println("y = " + m + " * x + " + b);
+        // System.out.println("one " + one + " two " + two + " xdiff " + xDiff + " ydiff " + yDiff + " = q " + quotients + " r " + remainder);
     }
 
     public Optional<Point> next() {
+        counter++;
         if (vertical) {
-            y = y.add(BigDecimal.ONE);
-            if (y.compareTo(yEnd) < 0) {
-                return Optional.of(new Point(x.intValue(), y.intValue()));
+            if (counter < yDiff) {
+                return Optional.of(new Point(one.getX(), one.getY() + counter));
             }
-            return Optional.empty();
         }
-        x = x.add(BigDecimal.ONE);
-        if (x.compareTo(xEnd) < 0) {
-            BigDecimal newY = m.multiply(x).add(b);
-            if (isInteger(newY)) {
-                return Optional.of(new Point(x.intValue(), newY.intValue()));
+        if (counter < xDiff) {
+            int foo = counter * remainder;
+            if (foo % xDiff == 0) {
+                return Optional.of(new Point(one.getX() + counter, one.getY() + quotients * counter + remainder * counter / xDiff));
             } else {
                 return next();
             }
         }
         return Optional.empty();
-    }
 
-    private boolean isInteger(BigDecimal number) {
-        return number.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
     }
 }
