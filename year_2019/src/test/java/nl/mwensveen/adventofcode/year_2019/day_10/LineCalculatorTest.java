@@ -73,4 +73,28 @@ public class LineCalculatorTest {
         assertFalse(calculator.next().isPresent());
     }
 
+    @Test
+    public void testCalculateHorizontal() throws Exception {
+        Point one = new Point(4, 3);
+        Point two = new Point(0, 3);
+        LineCalculator calculator = new LineCalculator(one, two);
+
+        Optional<Point> next = calculator.next();
+        assertTrue(next.isPresent());
+        assertEquals(1, next.get().getX());
+        assertEquals(3, next.get().getY());
+
+        next = calculator.next();
+        assertTrue(next.isPresent());
+        assertEquals(2, next.get().getX());
+        assertEquals(3, next.get().getY());
+
+        next = calculator.next();
+        assertTrue(next.isPresent());
+        assertEquals(3, next.get().getX());
+        assertEquals(3, next.get().getY());
+
+        assertFalse(calculator.next().isPresent());
+    }
+
 }

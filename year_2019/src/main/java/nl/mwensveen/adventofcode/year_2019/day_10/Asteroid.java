@@ -29,7 +29,7 @@ public class Asteroid {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("point", point).toString();
+        return MoreObjects.toStringHelper(this).add("point", point).add("detectable", detectable.size()).add("notDetectable", notDetectable.size()).toString();
     }
 
 }
