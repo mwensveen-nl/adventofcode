@@ -8,7 +8,7 @@ import java.util.List;
 public class Robot {
 
     private IntcodeProgram program;
-    private Table<Integer, Integer, Color> hull = HashBasedTable.create();
+    private final Table<Integer, Integer, Color> hull = HashBasedTable.create();
 
     public Robot(IntcodeProgram program) {
         this.program = program;
@@ -19,7 +19,7 @@ public class Robot {
         Point p = new Point(0, 0);
 
         Color panel = hull.get(p.getX(), p.getY());
-        List<BigInteger> output = program.process(panel == null ? Color.BLACK.getNumber() : panel.getNumber());
+        List<BigInteger> output = program.process(startPanelColor.getNumber());
 
         while (!output.isEmpty()) {
             hull.put(p.getX(), p.getY(), Color.find(output.get(0).intValue()));
@@ -28,8 +28,11 @@ public class Robot {
             panel = hull.get(p.getX(), p.getY());
             output = program.process(panel == null ? Color.BLACK.getNumber() : panel.getNumber());
         }
-
         return hull.size();
+    }
+
+    public Table<Integer, Integer, Color> getHull() {
+        return hull;
     }
 
 }

@@ -16,7 +16,6 @@ public class SpacePoliceSolution extends AbstractTimedSolution {
         Robot robot = new Robot(intcodeProgram);
         int result = robot.emergencyHullPainting(Color.BLACK);
         System.out.println("Number of unique panels painted " + result);
-
     }
 
     @Override
@@ -24,6 +23,8 @@ public class SpacePoliceSolution extends AbstractTimedSolution {
         IntcodeProgram intcodeProgram = new IntcodeProgram(FileReadHelper.readCSVBigIntegers("Day11.txt"), OptionalInt.of(2));
         Robot robot = new Robot(intcodeProgram);
         robot.emergencyHullPainting(Color.WHITE);
+        ExternalShipCamera camera = new ExternalShipCamera(robot.getHull());
+        camera.showHull();
     }
 
 }
