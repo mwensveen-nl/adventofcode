@@ -13,11 +13,13 @@ public class MotionSimulator {
     public int simulate(int steps) {
         GravityApplier gravityApplier = new GravityApplier();
         VelocityApplier velocityApplier = new VelocityApplier();
-        // System.out.println(moons);
+        System.out.print(String.format("%3d: ", 0));
+        System.out.println(moons);
         for (int i = 0; i < steps; i++) {
             gravityApplier.apply(moons);
             velocityApplier.applyVelocity(moons);
-            // System.out.println(moons);
+            System.out.print(String.format("%3d: ", i + 1));
+            System.out.println(moons);
         }
 
         EnergyCalculator calculator = new EnergyCalculator();
