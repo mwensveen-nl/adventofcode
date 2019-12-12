@@ -16,8 +16,25 @@ public class GravityApplier {
 
     private void applyGravity(Moon baseMoon, Moon m) {
         if (baseMoon.getPositionX() < m.getPositionX()) {
-            baseMoon.u
+            baseMoon.increaseVelocityX(-1);
+            m.increaseVelocityX(1);
+        } else if (baseMoon.getPositionX() > m.getPositionX()) {
+            baseMoon.increaseVelocityX(1);
+            m.increaseVelocityX(-1);
         }
-        return null;
+        if (baseMoon.getPositionY() < m.getPositionY()) {
+            baseMoon.increaseVelocityY(-1);
+            m.increaseVelocityY(1);
+        } else if (baseMoon.getPositionY() > m.getPositionY()) {
+            baseMoon.increaseVelocityY(1);
+            m.increaseVelocityY(-1);
+        }
+        if (baseMoon.getPositionZ() < m.getPositionZ()) {
+            baseMoon.increaseVelocityZ(-1);
+            m.increaseVelocityZ(1);
+        } else if (baseMoon.getPositionZ() > m.getPositionZ()) {
+            baseMoon.increaseVelocityZ(1);
+            m.increaseVelocityZ(-1);
+        }
     }
 }
