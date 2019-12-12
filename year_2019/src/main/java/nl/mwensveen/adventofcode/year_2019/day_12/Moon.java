@@ -62,4 +62,9 @@ public class Moon {
     public void increaseVelocityZ(int increase) {
         velocityZ += increase;
     }
+
+    @Override
+    public String toString() {
+        return String.format("pos=<x=%4d, y=%4d, z=%4d>, vel=<x=%4d, y=%4d, z=%4d>", positionX, positionY, positionZ, velocityX, velocityY, velocityZ);
+    }
 }

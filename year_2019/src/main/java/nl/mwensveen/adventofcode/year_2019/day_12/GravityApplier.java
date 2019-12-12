@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GravityApplier {
 
-    public void applyGravity(List<Moon> moons) {
+    public void apply(List<Moon> moons) {
         StreamUtils.zipWithIndex(moons.stream()).forEach(entry -> applyGravity(entry.getValue(), moons.subList((int) entry.getIndex() + 1, moons.size())));
     }
 
@@ -15,24 +15,24 @@ public class GravityApplier {
     }
 
     private void applyGravity(Moon baseMoon, Moon m) {
-        if (baseMoon.getPositionX() < m.getPositionX()) {
+        if (baseMoon.getPositionX() > m.getPositionX()) {
             baseMoon.increaseVelocityX(-1);
             m.increaseVelocityX(1);
-        } else if (baseMoon.getPositionX() > m.getPositionX()) {
+        } else if (baseMoon.getPositionX() < m.getPositionX()) {
             baseMoon.increaseVelocityX(1);
             m.increaseVelocityX(-1);
         }
-        if (baseMoon.getPositionY() < m.getPositionY()) {
+        if (baseMoon.getPositionY() > m.getPositionY()) {
             baseMoon.increaseVelocityY(-1);
             m.increaseVelocityY(1);
-        } else if (baseMoon.getPositionY() > m.getPositionY()) {
+        } else if (baseMoon.getPositionY() < m.getPositionY()) {
             baseMoon.increaseVelocityY(1);
             m.increaseVelocityY(-1);
         }
-        if (baseMoon.getPositionZ() < m.getPositionZ()) {
+        if (baseMoon.getPositionZ() > m.getPositionZ()) {
             baseMoon.increaseVelocityZ(-1);
             m.increaseVelocityZ(1);
-        } else if (baseMoon.getPositionZ() > m.getPositionZ()) {
+        } else if (baseMoon.getPositionZ() < m.getPositionZ()) {
             baseMoon.increaseVelocityZ(1);
             m.increaseVelocityZ(-1);
         }
