@@ -11,11 +11,11 @@ public class BinaryBoardingSolution extends AbstractTimedSolution {
     private SeatIDProcessor seatIDProcessor = new SeatIDProcessor();
 
     public static void main(String[] args) {
-        BinaryBoardingSolution solution = new BinaryBoardingSolution();
-        solution.run();
+        new BinaryBoardingSolution().run();
     }
 
-    public BinaryBoardingSolution() {
+    @Override
+    protected void init() {
         input = FileReadHelper.readLinesAsStrings("Day_05.txt");
     }
 

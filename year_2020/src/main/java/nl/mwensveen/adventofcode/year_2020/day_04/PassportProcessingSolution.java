@@ -10,13 +10,16 @@ public class PassportProcessingSolution extends AbstractTimedSolution {
     private PassportProcessing passportProcessing;
 
     public static void main(String[] args) {
-        PassportProcessingSolution solution = new PassportProcessingSolution();
-        solution.run();
+        new PassportProcessingSolution().run();
+    }
+
+    @Override
+    protected void init() {
+        input = FileReadHelper.readLinesAsStrings("Day_04.txt");
+        passportProcessing = new PassportProcessing(input);
     }
 
     public PassportProcessingSolution() {
-        input = FileReadHelper.readLinesAsStrings("Day_04.txt");
-        passportProcessing = new PassportProcessing(input);
     }
 
     @Override

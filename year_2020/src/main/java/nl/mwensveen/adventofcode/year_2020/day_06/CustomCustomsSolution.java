@@ -9,11 +9,11 @@ public class CustomCustomsSolution extends AbstractTimedSolution {
     private List<List<String>> groupAnswers;
 
     public static void main(String[] args) {
-        CustomCustomsSolution solution = new CustomCustomsSolution();
-        solution.run();
+        new CustomCustomsSolution().run();
     }
 
-    public CustomCustomsSolution() {
+    @Override
+    protected void init() {
         List<String> input = FileReadHelper.readLinesAsStrings("Day_06.txt");
         groupAnswers = answerProcessor.groupAnswers(input);
     }

@@ -9,11 +9,11 @@ public class PasswordPhilosophySolution extends AbstractTimedSolution {
     private PasswordListChecker passwordListChecker;
 
     public static void main(String[] args) {
-        PasswordPhilosophySolution solution = new PasswordPhilosophySolution();
-        solution.run();
+        new PasswordPhilosophySolution().run();
     }
 
-    public PasswordPhilosophySolution() {
+    @Override
+    protected void init() {
         input = FileReadHelper.readLinesAsStrings("Day_02.txt");
         passwordListChecker = new PasswordListChecker(input);
     }

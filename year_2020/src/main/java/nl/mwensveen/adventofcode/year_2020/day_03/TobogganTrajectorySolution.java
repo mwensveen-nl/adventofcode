@@ -12,7 +12,8 @@ public class TobogganTrajectorySolution extends AbstractTimedSolution {
         new TobogganTrajectorySolution().run();
     }
 
-    public TobogganTrajectorySolution() {
+    @Override
+    protected void init() {
         List<String> input = FileReadHelper.readLinesAsStrings("Day_03.txt");
         tobogganTrajectoryCalculator = new TobogganTrajectoryCalculator(input);
     }
