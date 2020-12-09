@@ -29,6 +29,23 @@ public final class FileReadHelper {
     }
 
     /**
+     * Read lines of the file and return each line as integer.
+     *
+     * @param fileName the file name
+     * @return an immutable list
+     */
+    public static List<Long> readLinesAsLongss(String fileName) {
+        URL url = Resources.getResource(fileName);
+        List<String> lines;
+        try {
+            lines = Files.readLines(new File(url.getFile()), Charset.defaultCharset());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return lines.stream().map(s -> Long.valueOf(s)).collect(ImmutableList.toImmutableList());
+    }
+
+    /**
      * Read lines of the file and return each line as String.
      *
      * @param fileName the file name
