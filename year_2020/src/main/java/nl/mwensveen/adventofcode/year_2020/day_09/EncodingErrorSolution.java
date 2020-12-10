@@ -15,7 +15,7 @@ public class EncodingErrorSolution extends AbstractTimedSolution {
 
     @Override
     protected void init() {
-        input = FileReadHelper.readLinesAsLongss("Day_09.txt");
+        input = FileReadHelper.readLinesAsLongs("Day_09.txt");
     }
 
     @Override

@@ -34,7 +34,7 @@ public final class FileReadHelper {
      * @param fileName the file name
      * @return an immutable list
      */
-    public static List<Long> readLinesAsLongss(String fileName) {
+    public static List<Long> readLinesAsLongs(String fileName) {
         URL url = Resources.getResource(fileName);
         List<String> lines;
         try {
