@@ -1,6 +1,8 @@
 package nl.mwensveen.adventofcode.year_2020.day_10;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
@@ -32,17 +34,21 @@ public class AdaptorSequencer {
         List<Long> sorted = adaptors.stream().sorted().collect(Collectors.toList());
         Long last = sorted.get(sorted.size() - 1);
         sorted.add(last + 3);
-        int count = find(0, sorted);
+        Map<Long, Long> cache = new HashMap<>();
+        long count = find(0, sorted, cache);
         return count;
     }
 
-    private int find(long jolts, List<Long> sorted) {
-        int count = 0;
+    private long find(long jolts, List<Long> sorted, Map<Long, Long> cache) {
+        if (cache.containsKey(jolts)) {
+            return cache.get(jolts);
+        }
+        long count = 0;
         boolean done = false;
         for (int i = 0; i < sorted.size() && !done; i++) {
             if (sorted.get(i) - jolts < 4) {
                 // System.out.println(Strings.repeat(".", sorted.size()) + " " + jolts + " " + sorted.get(i));
-                count += find(sorted.get(i), sorted.subList(i + 1, sorted.size()));
+                count += find(sorted.get(i), sorted.subList(i + 1, sorted.size()), cache);
                 if (sorted.size() == 1) {
                     count++;
                 }
@@ -50,6 +56,7 @@ public class AdaptorSequencer {
                 done = true;
             }
         }
+        cache.put(jolts, count);
         return count;
     }
 }

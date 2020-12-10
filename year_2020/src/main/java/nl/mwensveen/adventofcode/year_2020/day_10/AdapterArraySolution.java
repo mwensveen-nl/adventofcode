@@ -27,7 +27,7 @@ public class AdapterArraySolution extends AbstractTimedSolution {
     protected void part2() {
         AdaptorSequencer adaptorSequencer = new AdaptorSequencer();
         long result = adaptorSequencer.determineDistinctWays(input);
-        System.out.println("The number of 1-jolt differences multiplied by the number of 3-jolt differences = " + result);
+        System.out.println("Total number of distinct ways you can arrange the adapters to connect the charging outlet to your device = " + result);
     }
 
 }
