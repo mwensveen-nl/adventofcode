@@ -10,7 +10,7 @@ public abstract class AbstractTimedSolution {
 
         init();
         Instant finishInit = Instant.now();
-        System.err.println("Duration init " + Duration.between(start, finishInit).toString());
+        System.err.println("Duration init     " + Duration.between(start, finishInit).toString());
 
         part1();
         Instant finishOne = Instant.now();
