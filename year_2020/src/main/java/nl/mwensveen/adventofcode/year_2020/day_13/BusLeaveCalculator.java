@@ -19,24 +19,23 @@ public class BusLeaveCalculator {
         return 1.0 * now / bn.intValue();
     }
 
-    // based on: Least Common Multiple
+    // based on: Least Common Multiple: https://www.baeldung.com/java-least-common-multiple
     public long findSchedule(List<BusInterval> bi) {
-        long time = 0L;
+        long lcm = 0L;
         long increment = bi.get(0).getBusNr();
         for (int i = 1; i < bi.size(); i++) {
-            long busNummer1 = bi.get(i).getBusNr();
-            long interval1 = bi.get(i).getInterval();
-            boolean search = true;
-            while (search) {
-                time += increment;
-                if ((time + interval1) % busNummer1 == 0) {
-                    increment *= busNummer1;
-                    search = false;
+            long busNummer = bi.get(i).getBusNr();
+            long interval = bi.get(i).getInterval();
+            boolean lcmFound = false;
+            while (!lcmFound) {
+                lcm += increment;
+                if ((lcm + interval) % busNummer == 0) {
+                    lcmFound = true;
                 }
             }
+            increment *= busNummer;
         }
-        return time;
-
+        return lcm;
     }
 
 }
