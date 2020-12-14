@@ -19,14 +19,14 @@ public class ProgramRunner {
         Map<Integer, Integer> maskMap = new HashMap<>();
         for (String instruction : input) {
             if (instruction.startsWith(MASK)) {
-                maskMap = maskParser.parse(instruction.substring(MASK_Lenght));
+                maskMap = maskParser.parseVersionOne(instruction.substring(MASK_Lenght));
             } else {
                 int start = instruction.indexOf("[");
                 int end = instruction.indexOf("]");
                 int startNumber = instruction.indexOf("=");
                 Long memPos = Long.parseLong(instruction.substring(start + 1, end));
                 Long value = Long.parseLong(instruction.substring(startNumber + 2));
-                memory.put(memPos, bitMaskProcessor.process(value, maskMap));
+                memory.put(memPos, bitMaskProcessor.processVersionOne(value, maskMap));
             }
         }
 
