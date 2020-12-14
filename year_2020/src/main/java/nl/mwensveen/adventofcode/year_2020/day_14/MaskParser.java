@@ -22,17 +22,6 @@ public class MaskParser {
         return result;
     }
 
-    public List<List<String>> parseVersionTwo(String mask) {
-        String[] split = mask.split("");
-        List<String> orig = new ArrayList<>();
-        for (int i = 0; i < split.length; i++) {
-            String s = split[i];
-            orig.add(s);
-        }
-
-        return processFloatingBit(orig);
-    }
-
     private List<List<String>> processFloatingBit(List<String> orig) {
         boolean done = false;
         List<List<String>> oldMasks = new ArrayList<>();

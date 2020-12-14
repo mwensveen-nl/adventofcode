@@ -21,15 +21,15 @@ public class DockingDataSolution extends AbstractTimedSolution {
     @Override
     protected void part1() {
         ProgramRunner programRunner = new ProgramRunner();
-        BigInteger result = programRunner.runProgram(input);
-        System.out.println("The sum of all values left in memory after it completes = " + result);
-
+        BigInteger result = programRunner.runProgramVersionOne(input);
+        System.out.println("The sum of all values left in memory after running version one = " + result);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        ProgramRunner programRunner = new ProgramRunner();
+        BigInteger result = programRunner.runProgramVersionTwo(input);
+        System.out.println("The sum of all values left in memory after running version two = " + result);
     }
 
 }
