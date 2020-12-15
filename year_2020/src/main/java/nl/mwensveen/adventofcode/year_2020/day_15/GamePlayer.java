@@ -38,6 +38,10 @@ public class GamePlayer {
         if (!numbers.containsKey(num)) {
             numbers.put(num, new ArrayList<>());
         }
-        numbers.get(num).add(Long.valueOf(position));
+        List<Long> list = numbers.get(num);
+        list.add(Long.valueOf(position));
+        if (list.size() > 2) {
+            list.remove(0);
+        }
     }
 }
