@@ -61,15 +61,6 @@ public class TicketsProcessor {
     private boolean checkFieldOnPosition(Field field, int c, List<List<Integer>> validTickets) {
         return validTickets.stream().map(ticket -> ticket.get(c)).filter(i -> !ticketValidator.validateValue(i, field)).findAny().isEmpty();
 
-        // boolean valid = true;
-        // for (Iterator<List<Integer>> iterator = validTickets.iterator(); valid && iterator.hasNext();) {
-        // List<Integer> ticket = iterator.next();
-        // Integer value = ticket.get(c);
-        // if (value != null) {
-        // valid = ticketValidator.validateValue(value, field);
-        // }
-        // }
-        // return valid;
     }
 
     private List<List<Integer>> possibleFieldNumber(int fieldSize) {
