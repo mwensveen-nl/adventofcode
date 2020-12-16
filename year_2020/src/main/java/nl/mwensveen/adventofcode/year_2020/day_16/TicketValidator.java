@@ -12,7 +12,7 @@ public class TicketValidator {
         return fields.stream().filter(f -> validateValue(value, f)).findAny().isEmpty();
     }
 
-    private boolean validateValue(Integer value, Field f) {
+    public boolean validateValue(Integer value, Field f) {
         return f.getRanges().stream().filter(r -> r.inRange(value)).findAny().isPresent();
     }
 }
