@@ -3,7 +3,7 @@ package nl.mwensveen.adventofcode.year_2020.day_17;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Grid {
+public class Grid3D {
 
     private Map<Integer, Map<Integer, Map<Integer, State>>> dimensions = new HashMap<>();
 
@@ -39,40 +39,31 @@ public class Grid {
     }
 
     public void activate(int x, int y, int z) {
-        Map<Integer, State> xy = get(x, y);
+        Map<Integer, State> xy = getCreate(x, y);
         xy.put(z, State.ACTIVE);
         minMax(x, y, z);
     }
 
     public void deActivate(int x, int y, int z) {
-        Map<Integer, State> xy = get(x, y);
+        Map<Integer, State> xy = getCreate(x, y);
         xy.put(z, State.INACTIVE);
         minMax(x, y, z);
     }
 
     private void minMax(int x, int y, int z) {
-        if (x < 0) {
-            minX = Math.min(minX, x);
-        }
-        if (x > 0) {
-            maxX = Math.max(maxX, x);
-        }
-        if (y < 0) {
-            minY = Math.min(minY, y);
-        }
-        if (y > 0) {
-            maxY = Math.max(maxY, y);
-        }
-        if (z < 0) {
-            minZ = Math.min(minZ, z);
-        }
-        if (z > 0) {
-            maxZ = Math.max(maxZ, z);
-        }
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+        minZ = Math.min(minZ, z);
+        maxZ = Math.max(maxZ, z);
     }
 
     public State get(int x, int y, int z) {
         Map<Integer, State> xy = get(x, y);
+        if (xy == null) {
+            return State.INACTIVE;
+        }
         State state = xy.get(z);
         if (state == null) {
             return State.INACTIVE;
@@ -80,12 +71,20 @@ public class Grid {
         return state;
     }
 
+    private Map<Integer, State> get(int x, int y) {
+        Map<Integer, Map<Integer, State>> xMap = dimensions.get(x);
+        if (xMap == null) {
+            return null;
+        }
+        return xMap.get(y);
+    }
+
     @Override
-    public Grid clone() {
-        Grid clone = new Grid();
-        for (int z = getMinZ(); z <= getMaxZ(); z++) {
-            for (int x = getMinX(); x <= getMaxX(); x++) {
-                for (int y = getMinY(); y <= getMaxY(); y++) {
+    public Grid3D clone() {
+        Grid3D clone = new Grid3D();
+        for (int x = getMinX(); x <= getMaxX(); x++) {
+            for (int y = getMinY(); y <= getMaxY(); y++) {
+                for (int z = getMinZ(); z <= getMaxZ(); z++) {
                     State state = get(x, y, z);
                     if (state == State.ACTIVE) {
                         clone.activate(x, y, z);
@@ -98,7 +97,7 @@ public class Grid {
         return clone;
     }
 
-    private Map<Integer, State> get(int x, int y) {
+    private Map<Integer, State> getCreate(int x, int y) {
         Map<Integer, Map<Integer, State>> xMap = dimensions.get(x);
         if (xMap == null) {
             xMap = new HashMap<>();
@@ -113,7 +112,7 @@ public class Grid {
         return yMap;
     }
 
-    public static enum State {
+    public enum State {
         ACTIVE,
         INACTIVE;
     }

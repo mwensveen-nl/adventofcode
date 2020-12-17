@@ -2,16 +2,16 @@ package nl.mwensveen.adventofcode.year_2020.day_17;
 
 import java.util.Arrays;
 import java.util.List;
-import nl.mwensveen.adventofcode.year_2020.day_17.Grid.State;
+import nl.mwensveen.adventofcode.year_2020.day_17.Grid3D.State;
 import org.junit.jupiter.api.Test;
 
-public class GridParserTest {
+public class Grid3DParserTest {
 
     @Test
     public void testParse() throws Exception {
         List<String> input = Arrays.asList(".#.", "..#", "###");
-        GridParser parser = new GridParser();
-        Grid grid = parser.parse(input);
+        Grid3DParser parser = new Grid3DParser();
+        Grid3D grid = parser.parse(input);
         for (int z = grid.getMinZ(); z <= grid.getMaxZ(); z++) {
             System.out.println("z=" + z);
             for (int x = grid.getMinX(); x <= grid.getMaxX(); x++) {
