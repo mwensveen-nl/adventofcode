@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class InputProcessor {
     private Pattern AB = Pattern.compile("^[ab]+$");
 
-    public Collection<String> processRules(List<String> input) {
+    public Multimap<Integer, String> processRules(List<String> input) {
         Multimap<Integer, String> rules = ArrayListMultimap.create();
         input.stream().filter(s -> s.contains(":")).forEach(s -> addRule(s, rules));
 
@@ -27,7 +27,7 @@ public class InputProcessor {
                 rules.putAll(i, newRules.get(i));
             });
         }
-        return rules.get(Integer.valueOf(0));
+        return rules;
     }
 
     private Multimap<Integer, String> processEntry(Multimap<Integer, String> rules, Entry<Integer, String> entry) {
