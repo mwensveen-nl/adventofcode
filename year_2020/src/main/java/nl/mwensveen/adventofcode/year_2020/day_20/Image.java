@@ -11,7 +11,8 @@ public class Image {
     private int rotated = 0;
     private boolean flipped = false;
     private final String id;
-    private int x = 0;
+    private int rowSize = 0;
+    private int columnSize = 0;
 
     public Image(String id) {
         super();
@@ -22,9 +23,18 @@ public class Image {
         String[] pixels = in.split("");
         for (int i = 0; i < pixels.length; i++) {
             String p = pixels[i];
-            table.put(x, i, p);
+            table.put(rowSize, i, p);
         }
-        x++;
+        rowSize++;
+        columnSize = Math.max(in.length(), columnSize);
+    }
+
+    public int getRowSize() {
+        return rowSize;
+    }
+
+    public int getColumnSize() {
+        return columnSize;
     }
 
     public String getRow(int i) {
