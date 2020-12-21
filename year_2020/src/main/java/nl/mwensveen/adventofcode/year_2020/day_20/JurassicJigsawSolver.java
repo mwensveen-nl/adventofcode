@@ -36,7 +36,12 @@ public class JurassicJigsawSolver extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        ImageMerger imageMerger = new ImageMerger();
+        Image mergedImage = imageMerger.merge(imageGrid);
+
+        SeamonsterProcessor seamonsterProcessor = new SeamonsterProcessor();
+        int result = seamonsterProcessor.processSeamonsterInImage(mergedImage);
+        System.out.println("Number of # that are not part of a sea monster = " + result);
 
     }
 

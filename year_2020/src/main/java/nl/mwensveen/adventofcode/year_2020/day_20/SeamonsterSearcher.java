@@ -1,7 +1,9 @@
 package nl.mwensveen.adventofcode.year_2020.day_20;
 
 import com.google.common.collect.Table;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class SeamonsterSearcher {
 
@@ -26,9 +28,11 @@ public class SeamonsterSearcher {
     private boolean checkSeamonster(Image image, int r, int index, Seamonster seamonster) {
         Table<Integer, Integer, String> table = seamonster.getTable();
         boolean found = true;
-        for (int sr = 0; sr < seamonster.getRows() && found; sr++) {
-            Map<Integer, String> seamonsterRow = table.row(sr);
-            String row = image.getRow(r + sr);
+        Set<Integer> seamonsterRows = seamonster.getTable().rowKeySet();
+        for (Iterator<Integer> iterator = seamonsterRows.iterator(); iterator.hasNext() && found;) {
+            Integer rowKey = iterator.next();
+            Map<Integer, String> seamonsterRow = table.row(rowKey);
+            String row = image.getRow(r + rowKey);
             found = seamonsterRow.keySet().stream().filter(si -> row.charAt(si + index) != '#').findAny().isEmpty();
         }
         return found;
