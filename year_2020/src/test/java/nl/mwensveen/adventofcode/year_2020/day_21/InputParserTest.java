@@ -10,13 +10,12 @@ public class InputParserTest {
 
     @Test
     public void testParse() throws Exception {
-        List<String> input = Arrays.asList("mxmxvkd kfcds sqjhc nhms (contains dairy, fish)",
-                "trh fvjkl sbzzf mxmxvkd (contains dairy)",
-                "sqjhc fvjkl (contains soy)",
-                "sqjhc mxmxvkd sbzzf (contains fish)");
+        List<String> input = Arrays.asList("mxmxvkd kfcds sqjhc nhms (contains dairy, fish)", "trh fvjkl sbzzf mxmxvkd (contains dairy)",
+                "sqjhc fvjkl (contains soy)", "sqjhc mxmxvkd sbzzf (contains fish)");
         InputParser inputParser = new InputParser();
-        List<Allergen> allergens = inputParser.parse(input);
-        assertEquals(5, allergens.size());
+        AllergenInput allergens = inputParser.parse(input);
+        assertEquals(5, allergens.getAllergens().size());
+        assertEquals(13, allergens.getIngredients().size());
     }
 
 }

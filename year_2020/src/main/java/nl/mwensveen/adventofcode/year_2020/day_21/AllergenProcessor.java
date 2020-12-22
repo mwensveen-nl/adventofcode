@@ -8,7 +8,17 @@ import java.util.stream.Collectors;
 
 public class AllergenProcessor {
 
-    public List<String> process(List<Allergen> input) {
+    public List<String> findIngredentsOfAllergens(List<Allergen> input) {
+        List<Allergen> oneList = determineAllergens(input);
+        return oneList.stream().map(a -> a.getPossibleCode().get(0)).collect(Collectors.toList());
+
+    }
+
+    public List<Allergen> findAllergens(List<Allergen> input) {
+        return determineAllergens(input);
+    }
+
+    private List<Allergen> determineAllergens(List<Allergen> input) {
         List<Allergen> oneList = input.stream().filter(a -> a.getPossibleCode().size() == 1).collect(Collectors.toList());
         List<Allergen> multipleList = input.stream().filter(a -> a.getPossibleCode().size() != 1).collect(Collectors.toList());
         List<String> allCodes = input.stream().map(Allergen::getPossibleCode).flatMap(Collection::stream).collect(Collectors.toList());
@@ -19,8 +29,7 @@ public class AllergenProcessor {
             oneList = oneList.stream().distinct().collect(Collectors.toList());
             multipleList = multipleList.stream().filter(a -> a.getPossibleCode().size() != 1).collect(Collectors.toList());
         }
-        return oneList.stream().map(a -> a.getPossibleCode().get(0)).collect(Collectors.toList());
-
+        return oneList;
     }
 
     private void process(List<Allergen> oneList, List<Allergen> multipleList) {
