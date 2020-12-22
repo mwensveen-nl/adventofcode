@@ -22,4 +22,15 @@ public class ScoreCalculatorTest {
         assertEquals(306, result);
     }
 
+    @Test
+    public void testCalculateScore2() throws Exception {
+        List<String> input = Arrays.asList("Player 1:", "7", "5", "6", "2", "4", "1", "10", "8", "9", "3");
+        InputParser inputParser = new InputParser();
+        List<Player> players = inputParser.parse(input);
+
+        ScoreCalculator scoreCalculator = new ScoreCalculator();
+        long result = scoreCalculator.calculateScore(players.get(0));
+        assertEquals(291, result);
+    }
+
 }

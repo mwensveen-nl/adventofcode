@@ -4,7 +4,6 @@ public class ScoreCalculator {
 
     public long calculateScore(Player player) {
         int multiplier = player.numberOfSpaceCards();
-        int cardNumber = 0;
         long sum = 0;
         while (player.hasSpaceCards()) {
             Integer card = player.getTopSpaceCard();

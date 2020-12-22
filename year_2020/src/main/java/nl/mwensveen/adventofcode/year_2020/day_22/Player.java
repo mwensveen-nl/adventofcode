@@ -2,6 +2,7 @@ package nl.mwensveen.adventofcode.year_2020.day_22;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -25,9 +26,17 @@ public class Player {
         return spaceCards.size();
     }
 
+    public List<Integer> getSpaceCard() {
+        return spaceCards;
+    }
+
     public void addSpaceCards(Integer card1, Integer card2) {
         spaceCards.add(card1);
         spaceCards.add(card2);
+    }
+
+    public List<Integer> copyDeck(int numberOfCards) {
+        return spaceCards.stream().limit(numberOfCards).collect(Collectors.toList());
     }
 
     /**
@@ -116,4 +125,5 @@ public class Player {
             return new Player(this);
         }
     }
+
 }

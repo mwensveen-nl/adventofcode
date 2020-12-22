@@ -6,17 +6,18 @@ import nl.mwensveen.adventofcode.year_2020.FileReadHelper;
 
 public class CrabCombatSolution extends AbstractTimedSolution {
 
-    private List<Player> players;
+    private List<String> input;
 
     @Override
     protected void init() {
-        List<String> input = FileReadHelper.readLinesAsStrings("Day_22.txt");
-        InputParser inputParser = new InputParser();
-        players = inputParser.parse(input);
+        input = FileReadHelper.readLinesAsStrings("Day_22.txt");
     }
 
     @Override
     protected void part1() {
+        InputParser inputParser = new InputParser();
+        List<Player> players = inputParser.parse(input);
+
         CombatGame game = new CombatGame();
         Player winner = game.playGame(players);
 
@@ -28,7 +29,16 @@ public class CrabCombatSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        InputParser inputParser = new InputParser();
+        List<Player> players = inputParser.parse(input);
+
+        RecursiveCombatGame game = new RecursiveCombatGame();
+        Player winner = game.playGame(players);
+
+        ScoreCalculator scoreCalculator = new ScoreCalculator();
+        long result = scoreCalculator.calculateScore(winner);
+
+        System.out.println("The winning player's score: " + result);
 
     }
 
