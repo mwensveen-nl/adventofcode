@@ -27,7 +27,7 @@ public class CrabCupsSolution extends AbstractTimedSolution {
     protected void part2() {
         CupsGame cupsGame = new CupsGame();
         long result = cupsGame.playGameMillion(input, 10000000);
-        System.out.println("The labels on the cups after cup 1: " + result);
+        System.out.println("Multiplication of the two cups that end up immediately clockwise of cup 1 gives: " + result);
     }
 
     public static void main(String[] args) {
