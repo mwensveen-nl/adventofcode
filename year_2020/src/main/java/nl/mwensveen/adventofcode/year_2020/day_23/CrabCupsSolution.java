@@ -26,7 +26,7 @@ public class CrabCupsSolution extends AbstractTimedSolution {
     @Override
     protected void part2() {
         CupsGame cupsGame = new CupsGame();
-        String result = cupsGame.playGameMillion(input, 10000000);
+        long result = cupsGame.playGameMillion(input, 10000000);
         System.out.println("The labels on the cups after cup 1: " + result);
     }
 

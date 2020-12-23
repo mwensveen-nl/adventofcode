@@ -11,16 +11,16 @@ public class CupsTest {
     @Test
     public void testDoPickUp() throws Exception {
         List<Integer> input = Arrays.asList(3, 8, 9, 1, 2, 5, 4, 6, 7);
-        Cups cups = Cups.builder().addCircle(input).build();
+        Cups cups = new Cups(input);
 
-        List<Integer> expected = Arrays.asList(8, 9, 1);
-        assertEquals(expected, cups.doPickUp());
+        assertEquals(Integer.valueOf(8), cups.doPickUp());
     }
 
     @Test
     public void testDropPickup() throws Exception {
         List<Integer> input = Arrays.asList(3, 8, 9, 1, 2, 5, 4, 6, 7);
-        Cups cups = Cups.builder().addCircle(input).build();
+        Cups cups = new Cups(input);
+
         cups.doPickUp();
         assertEquals(Integer.valueOf(2), cups.dropPickup());
     }
@@ -28,7 +28,8 @@ public class CupsTest {
     @Test
     public void testPickNewCurrent() throws Exception {
         List<Integer> input = Arrays.asList(3, 8, 9, 1, 2, 5, 4, 6, 7);
-        Cups cups = Cups.builder().addCircle(input).build();
+        Cups cups = new Cups(input);
+
         cups.doPickUp();
         cups.dropPickup();
         assertEquals(Integer.valueOf(2), cups.pickNewCurrent());
@@ -37,13 +38,13 @@ public class CupsTest {
     @Test
     public void testDoPickUp2() throws Exception {
         List<Integer> input = Arrays.asList(3, 8, 9, 1, 2, 5, 4, 6, 7);
-        Cups cups = Cups.builder().addCircle(input).build();
+        Cups cups = new Cups(input);
+
         cups.doPickUp();
         cups.dropPickup();
         cups.pickNewCurrent();
 
-        List<Integer> expected = Arrays.asList(8, 9, 1);
-        assertEquals(expected, cups.doPickUp());
+        assertEquals(Integer.valueOf(8), cups.doPickUp());
         assertEquals(Integer.valueOf(7), cups.dropPickup());
         assertEquals(Integer.valueOf(5), cups.pickNewCurrent());
     }
@@ -51,7 +52,8 @@ public class CupsTest {
     @Test
     public void testFinishedLabels() throws Exception {
         List<Integer> input = Arrays.asList(3, 8, 9, 1, 2, 5, 4, 6, 7);
-        Cups cups = Cups.builder().addCircle(input).build();
+        Cups cups = new Cups(input);
+
         assertEquals("25467389", cups.finishedLabels());
     }
 

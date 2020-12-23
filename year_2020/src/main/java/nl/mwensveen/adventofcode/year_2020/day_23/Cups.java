@@ -1,135 +1,107 @@
 package nl.mwensveen.adventofcode.year_2020.day_23;
 
-import com.codepoetics.protonpack.Indexed;
-import com.codepoetics.protonpack.StreamUtils;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class Cups {
-    private List<Integer> circle;
-    private List<Integer> pickUp;
-    private Integer lowest;
-    private Integer highest;
+    private static final Integer ONE = Integer.valueOf(1);
+    private Cup current;
+    private Map<Integer, Cup> cupsMap = new HashMap<>();
+    private Cup pick;
+    private Integer lowest = Integer.MAX_VALUE;
+    private Integer highest = Integer.MIN_VALUE;
 
-    public List<Integer> doPickUp() {
-        pickUp = new ArrayList<>();
-        pickUp.add(circle.remove(1));
-        pickUp.add(circle.remove(1));
-        pickUp.add(circle.remove(1));
-
-        return pickUp;
+    public Integer doPickUp() {
+        pick = current.next;
+        current.next = pick.next.next.next;
+        current.next.prev = current;
+        return pick.number;
     }
 
     public Integer dropPickup() {
-        Integer destination = circle.get(0) - 1;
+        Integer destination = current.number - 1;
         return dropPickup(destination);
     }
 
     private Integer dropPickup(Integer destination) {
         Integer newDestination = destination;
-        if (newDestination.intValue() < lowest.intValue()) {
+        if (newDestination.compareTo(lowest) < 0) {
             newDestination = highest;
         }
-        if (pickUp.contains(newDestination)) {
+        if (pick.number.equals(newDestination) || pick.next.number.equals(newDestination) || pick.next.next.number.equals(newDestination)) {
             newDestination = newDestination - 1;
             return dropPickup(newDestination);
         } else {
-            int index = circle.indexOf(newDestination);
-            circle.addAll(index + 1, pickUp);
+            Cup destinationCup = cupsMap.get(newDestination);
+            Cup oldNext = destinationCup.next;
+            destinationCup.next = pick;
+            pick.prev = destinationCup;
+            oldNext.prev = pick.next.next;
+            pick.next.next.next = oldNext;
             return newDestination;
         }
     }
 
     public Integer pickNewCurrent() {
-        circle.add(circle.remove(0));
-        return circle.get(0);
+        current = current.next;
+        return current.number;
     }
 
     public String finishedLabels() {
-        int indexOf1 = circle.indexOf(Integer.valueOf(1));
-        List<Indexed<Integer>> labels = StreamUtils.zipWithIndex(circle.stream()).filter(entry -> entry.getIndex() > indexOf1).collect(Collectors.toList());
-        labels.addAll(StreamUtils.zipWithIndex(circle.stream()).filter(entry -> entry.getIndex() < indexOf1).collect(Collectors.toList()));
-        return labels.stream().map(i -> i.getValue().toString()).collect(Collectors.joining());
+        Cup one = cupsMap.get(ONE);
+        StringBuilder stringBuilder = new StringBuilder();
+        Cup next = one.next;
+        while (!next.equals(one)) {
+            stringBuilder.append(next.number.toString());
+            next = next.next;
+        }
+        return stringBuilder.toString();
+    }
+
+    public long findStars() {
+        Cup one = cupsMap.get(ONE);
+        return one.next.number.longValue() * one.next.next.number.longValue();
     }
 
     /**
      * Constructor that creates a Cups with the values of a Cups.Builder.
      */
-    private Cups(Builder builder) {
-        this.circle = new ArrayList(builder.circle);
-        init();
-    }
-
-    private void init() {
-        lowest = circle.stream().min(Integer::compare).get();
-        highest = circle.stream().max(Integer::compare).get();
-    }
-
-    /**
-     * Creates a new {@link Builder} for {@link Cups} objects.
-     *
-     * @return a new Builder
-     *
-     */
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    /**
-     * This class provides methods to build a {@link nl.mwensveen.adventofcode.year_2020.day_23.Cups}.
-     */
-    public static class Builder {
-        private List<Integer> circle = new ArrayList<>();
-
-        /**
-         * Sets the {@link #circle} property of this builder
-         *
-         * @param circle
-         * @return this builder
-         */
-        public Builder withCircle(List<Integer> circle) {
-            if (circle == null) {
-                throw new IllegalArgumentException("circle is null");
+    public Cups(List<Integer> cupsList) {
+        Cup prev = null;
+        Cup curr = null;
+        for (Integer number : cupsList) {
+            curr = new Cup(number);
+            if (current == null) {
+                current = curr;
             }
-            this.circle = circle;
-            return this;
-        }
-
-        /**
-         * Adds to the {@link #circle} property of this builder
-         *
-         * @param circle
-         * @return this builder
-         * @throws IllegalArgumentException if circle is null or contains a null element
-         */
-        public Builder addCircle(List<Integer> circleElements) {
-            if (circleElements == null) {
-                throw new IllegalArgumentException("circleElements is null");
+            if (prev != null) {
+                prev.next = curr;
+                curr.prev = prev;
             }
-            this.circle.addAll(circleElements);
-            return this;
+            cupsMap.put(number, curr);
+            prev = curr;
+            lowest = Math.min(lowest, number);
+            highest = Math.max(highest, number);
+        }
+        current.prev = prev;
+        prev.next = current;
+    }
+
+    private class Cup {
+        private Cup prev;
+        private Cup next;
+        private final Integer number;
+
+        public Cup(Integer number) {
+            super();
+            this.number = number;
         }
 
-        /**
-         * Adds to the {@link #circle} property of this builder
-         *
-         * @param circle
-         * @return this builder
-         * @throws IllegalArgumentException if circle is null or contains a null element
-         */
-        public Builder addCircle(Integer circleElement) {
-            this.circle.add(circleElement);
-            return this;
+        @Override
+        public String toString() {
+            return "Cup [(" + prev.number + ") " + number + " (" + next.number + ")]";
         }
 
-        /**
-         * Creates a new {@link Cups} based on this Builder.
-         *
-         * @return a new Cups
-         */
-        public Cups build() {
-            return new Cups(this);
-        }
     }
 }

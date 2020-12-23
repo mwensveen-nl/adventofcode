@@ -24,4 +24,12 @@ public class CupsGameTest {
         assertEquals("67384529", result);
     }
 
+    @Test
+    public void testPlayGameMillion() throws Exception {
+        List<Integer> input = Arrays.asList(3, 8, 9, 1, 2, 5, 4, 6, 7);
+        CupsGame game = new CupsGame();
+        long result = game.playGameMillion(input, 10000000);
+        assertEquals(149245887792L, result);
+    }
+
 }
