@@ -17,15 +17,15 @@ public class BinaryDiagnosticSolution extends AbstractTimedSolution {
 	@Override
 	protected void part1() {
 		RateCalculator calculator = new RateCalculator();
-		int result = calculator.calculateRates(input);
+		int result = calculator.calculatePowerConsumption(input);
 		System.out.println("Power consumption of the submarine: " + result);
-
 	}
 
 	@Override
 	protected void part2() {
-		// TODO Auto-generated method stub
-
+		RateCalculator calculator = new RateCalculator();
+		int result = calculator.calculateLifeSupportRating(input);
+		System.out.println("Life Support Rating of the submarine: " + result);
 	}
 
 	public static void main(String[] args) {

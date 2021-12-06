@@ -2,11 +2,17 @@ package nl.mwensveen.adventofcode.year_2021.day_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class RateCalculator {
 
-	int calculateRates(List<String> input) {
+	static enum Search {
+		MIN, MAX
+	}
+
+	int calculatePowerConsumption(List<String> input) {
 		List<Integer> numberOnes = new ArrayList<>();
 		input.forEach(b -> processBinairy(b, numberOnes));
 
@@ -14,6 +20,24 @@ public class RateCalculator {
 		String epsilonRate = calculateEpsilonRate(gammaRate);
 
 		return Integer.parseInt(gammaRate, 2) * Integer.parseInt(epsilonRate, 2);
+	}
+
+	int calculateLifeSupportRating(List<String> input) {
+		int oxygenGeneratorRating = calculateRatingForLifeSupport(input, Search.MAX);
+		int co2ScrubberRating = calculateRatingForLifeSupport(input, Search.MIN);
+		return oxygenGeneratorRating * co2ScrubberRating;
+	}
+
+	private int calculateRatingForLifeSupport(List<String> input, Search search) {
+		List<String> toProcess = input;
+		AtomicInteger pos = new AtomicInteger();
+		while (toProcess.size() > 1) {
+			char mostChar = countInBinaries(toProcess, pos.get());
+			char searchChar = search == Search.MAX ? mostChar : (mostChar == '1' ? '0' : '1');
+			toProcess = toProcess.stream().filter(s -> s.charAt(pos.get()) == searchChar).collect(Collectors.toList());
+			pos.addAndGet(1);
+		}
+		return Integer.parseInt(toProcess.get(0), 2);
 	}
 
 	private String calculateEpsilonRate(String gammaRate) {
@@ -44,5 +68,22 @@ public class RateCalculator {
 				numberOnes.set(i, numberOnes.get(i) + 1);
 			}
 		});
+	}
+
+	private char countInBinaries(List<String> binaries, int pos) {
+		AtomicInteger count = new AtomicInteger();
+		binaries.forEach(b -> {
+			char charAt = b.charAt(pos);
+			if (charAt == '1') {
+				count.addAndGet(1);
+			}
+		});
+		int ones = count.get();
+		int zeros = binaries.size() - ones;
+		if (ones >= zeros) {
+			return '1';
+		} else {
+			return '0';
+		}
 	}
 }
