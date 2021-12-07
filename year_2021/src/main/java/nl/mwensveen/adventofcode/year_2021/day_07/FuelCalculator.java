@@ -16,9 +16,13 @@ public class FuelCalculator {
 
     public long calculateMinimumFuelWithIncreasingExpense(List<Integer> input) {
         IntSummaryStatistics summaryStatistics = input.stream().mapToInt(Integer::intValue).summaryStatistics();
-        long average = (long) (summaryStatistics.getAverage() + 0.25);
-        long fuel = input.stream().map(i -> calcFuel(average, i)).mapToLong(Long::longValue).sum();
-        return fuel;
+        // round down
+        long average1 = (long) (summaryStatistics.getAverage());
+        long fuel1 = input.stream().map(i -> calcFuel(average1, i)).mapToLong(Long::longValue).sum();
+        // round up
+        long average2 = (long) (summaryStatistics.getAverage() + 1);
+        long fuel2 = input.stream().map(i -> calcFuel(average2, i)).mapToLong(Long::longValue).sum();
+        return fuel1 < fuel2 ? fuel1 : fuel2;
     }
 
     private long calcFuel(long average, Integer i) {
