@@ -27,4 +27,9 @@ public class DigitCounterTest {
 		assertEquals(26, result);
 	}
 
+    @Test
+    public void testIsKnowdDigit() {
+        throw new RuntimeException("not yet implemented");
+    }
+
 }
