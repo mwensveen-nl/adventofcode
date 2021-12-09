@@ -4,10 +4,10 @@ import com.google.common.base.Objects;
 
 public class Digit {
 
-	static final Digit ONE = Digit.builder().withC().withF().build();
-	static final Digit FOUR = Digit.builder().withB().withC().withD().withF().build();
-	static final Digit SEVEN = Digit.builder().withA().withC().withF().build();
-	static final Digit EIGHT = Digit.builder().withA().withB().withC().withD().withE().withF().withG().build();
+	static final Digit ONE = Digit.builder().withC().withF().build(); // 2
+	static final Digit FOUR = Digit.builder().withB().withC().withD().withF().build(); // 4
+	static final Digit SEVEN = Digit.builder().withA().withC().withF().build(); // 3
+	static final Digit EIGHT = Digit.builder().withA().withB().withC().withD().withE().withF().withG().build(); // 8
 
 	private final boolean a;
 	private final boolean b;
