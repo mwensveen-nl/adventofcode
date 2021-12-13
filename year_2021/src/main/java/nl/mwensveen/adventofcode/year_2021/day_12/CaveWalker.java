@@ -12,35 +12,12 @@ public class CaveWalker {
 		List<String> foundPaths = null;
 		currentPath.add("start");
 
-		if (!doubleVisitSmallCaveAllowed) {
-			foundPaths = findPaths(connections, currentPath, caves);
-		} else {
-			foundPaths = findPaths(connections, currentPath, caves, false);
-		}
+		foundPaths = findPaths(connections, currentPath, caves, false, doubleVisitSmallCaveAllowed);
 		return foundPaths.size();
 	}
 
-	private List<String> findPaths(List<String> connections, List<String> currentPath, Map<String, List<String>> caves) {
-		List<String> foundPaths = new ArrayList<>();
-
-		if (currentPath.contains("end")) {
-			foundPaths.add(String.join(",", currentPath));
-			return foundPaths;
-		}
-
-		for (String nextCave : connections) {
-			if (currentPath.contains(nextCave) && nextCave.toLowerCase().equals(nextCave)) {
-				// nothing to do
-			} else {
-				List<String> newPath = new ArrayList<>(currentPath);
-				newPath.add(nextCave);
-				foundPaths.addAll(findPaths(caves.get(nextCave), newPath, caves));
-			}
-		}
-		return foundPaths;
-	}
-
-	private List<String> findPaths(List<String> connections, List<String> currentPath, Map<String, List<String>> caves, boolean doubleVisited) {
+	private List<String> findPaths(List<String> connections, List<String> currentPath, Map<String, List<String>> caves, boolean doubleVisited,
+			boolean doubleVisitSmallCaveAllowed) {
 		List<String> foundPaths = new ArrayList<>();
 
 		if (currentPath.contains("end")) {
@@ -50,7 +27,7 @@ public class CaveWalker {
 		for (String nextCave : connections) {
 			boolean newDoubleVisisted = doubleVisited;
 			if (currentPath.contains(nextCave) && nextCave.toLowerCase().equals(nextCave)) {
-				if (newDoubleVisisted || nextCave.equals("start")) {
+				if (newDoubleVisisted || nextCave.equals("start") || !doubleVisitSmallCaveAllowed) {
 					continue;
 				} else {
 					newDoubleVisisted = true;
@@ -58,7 +35,7 @@ public class CaveWalker {
 			}
 			List<String> newPath = new ArrayList<>(currentPath);
 			newPath.add(nextCave);
-			foundPaths.addAll(findPaths(caves.get(nextCave), newPath, caves, newDoubleVisisted));
+			foundPaths.addAll(findPaths(caves.get(nextCave), newPath, caves, newDoubleVisisted, doubleVisitSmallCaveAllowed));
 
 		}
 		return foundPaths;
