@@ -6,25 +6,60 @@ import java.util.Map;
 
 public class CaveWalker {
 
-	int findPaths(Map<String, List<String>> caves) {
-		List<String> currentPath = new ArrayList<>();
+	public Integer findAllPaths(Map<String, List<String>> caves, boolean doubleVisitSmallCaveAllowed) {
 		List<String> connections = caves.get("start");
-		List<String> foundPaths = findPaths(connections, currentPath, caves);
+		List<String> currentPath = new ArrayList<>();
+		List<String> foundPaths = null;
+		currentPath.add("start");
+
+		if (!doubleVisitSmallCaveAllowed) {
+			foundPaths = findPaths(connections, currentPath, caves);
+		} else {
+			foundPaths = findPaths(connections, currentPath, caves, false);
+		}
 		return foundPaths.size();
 	}
 
 	private List<String> findPaths(List<String> connections, List<String> currentPath, Map<String, List<String>> caves) {
 		List<String> foundPaths = new ArrayList<>();
+
+		if (currentPath.contains("end")) {
+			foundPaths.add(String.join(",", currentPath));
+			return foundPaths;
+		}
+
 		for (String nextCave : connections) {
-			if (!nextCave.toLowerCase().equals(nextCave) && currentPath.contains(nextCave)) {
+			if (currentPath.contains(nextCave) && nextCave.toLowerCase().equals(nextCave)) {
+				// nothing to do
+			} else {
 				List<String> newPath = new ArrayList<>(currentPath);
 				newPath.add(nextCave);
-				if (nextCave.equals("end")) {
-					foundPaths.add(String.join(",", newPath));
+				foundPaths.addAll(findPaths(caves.get(nextCave), newPath, caves));
+			}
+		}
+		return foundPaths;
+	}
+
+	private List<String> findPaths(List<String> connections, List<String> currentPath, Map<String, List<String>> caves, boolean doubleVisited) {
+		List<String> foundPaths = new ArrayList<>();
+
+		if (currentPath.contains("end")) {
+			foundPaths.add(String.join(",", currentPath));
+			return foundPaths;
+		}
+		for (String nextCave : connections) {
+			boolean newDoubleVisisted = doubleVisited;
+			if (currentPath.contains(nextCave) && nextCave.toLowerCase().equals(nextCave)) {
+				if (newDoubleVisisted || nextCave.equals("start")) {
+					continue;
 				} else {
-					foundPaths.addAll(findPaths(caves.get(nextCave), newPath, caves));
+					newDoubleVisisted = true;
 				}
 			}
+			List<String> newPath = new ArrayList<>(currentPath);
+			newPath.add(nextCave);
+			foundPaths.addAll(findPaths(caves.get(nextCave), newPath, caves, newDoubleVisisted));
+
 		}
 		return foundPaths;
 	}
