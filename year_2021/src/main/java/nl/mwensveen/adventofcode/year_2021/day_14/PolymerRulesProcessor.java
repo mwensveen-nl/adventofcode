@@ -31,15 +31,8 @@ public class PolymerRulesProcessor {
         Map<String, Long> countChars = countChars(template);
         Entry<String, Long> max = countChars.entrySet().stream().max(Comparator.comparingLong(e -> e.getValue())).get();
         Entry<String, Long> min = countChars.entrySet().stream().min(Comparator.comparingLong(e -> e.getValue())).get();
-        long maxLong = max.getValue() / 2;
-        long minLong = min.getValue() / 2;
-        // if (max.getKey().equals(templateIn.subSequence(0, templateIn.length())) || max.getKey().equals(templateIn.substring(templateIn.length() - 1))) {
-        // maxLong++;
-        // }
-        // if (min.getKey().equals(templateIn.subSequence(0, templateIn.length())) || min.getKey().equals(templateIn.substring(templateIn.length() - 1))) {
-        // minLong++;
-        // }
-        return maxLong - minLong;
+
+        return max.getValue() / 2 - min.getValue() / 2;
     }
 
     private Map<String, Long> countChars(Map<String, Long> template) {
