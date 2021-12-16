@@ -8,8 +8,10 @@ public class RiskPath {
     private Long totalRisk = 0L;
 
     void addRiskLevel(RiskLevel riskLevel) {
+        if (!travelled.isEmpty()) {
+            totalRisk += riskLevel.getRisk();
+        }
         travelled.add(riskLevel);
-        totalRisk += riskLevel.getRisk();
     }
 
     boolean contains(RiskLevel riskLevel) {
