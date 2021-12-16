@@ -18,7 +18,6 @@ public class ChitonSolution extends AbstractTimedSolution {
         RiskPathFinder riskPathFinder = new RiskPathFinder();
         long result = riskPathFinder.findShortestPath(input);
         System.out.println("Lowest total risk of any path from the top left to the bottom right: " + result);
-
     }
 
     @Override

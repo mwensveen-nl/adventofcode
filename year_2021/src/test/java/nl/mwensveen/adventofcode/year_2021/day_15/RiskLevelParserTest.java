@@ -28,6 +28,12 @@ public class RiskLevelParserTest {
         assertEquals(new RiskLevel(0, 9, 2), result.get(0, 9));
         assertEquals(new RiskLevel(9, 0, 2), result.get(9, 0));
         assertEquals(new RiskLevel(9, 9, 1), result.get(9, 9));
+
+        RiskLevel riskLevel = result.get(1, 1);
+        assertEquals(result.get(0, 1), riskLevel.getUp());
+        assertEquals(result.get(2, 1), riskLevel.getDown());
+        assertEquals(result.get(1, 0), riskLevel.getLeft());
+        assertEquals(result.get(1, 2), riskLevel.getRight());
     }
 
 }

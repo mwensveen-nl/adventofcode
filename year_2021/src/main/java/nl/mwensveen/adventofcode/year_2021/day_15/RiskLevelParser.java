@@ -11,7 +11,25 @@ public class RiskLevelParser {
     Table<Integer, Integer, RiskLevel> parseInput(List<String> input) {
         Table<Integer, Integer, RiskLevel> caveGrid = HashBasedTable.create();
         StreamUtils.zipWithIndex(input.stream()).forEach(entry -> parseRow(entry.getIndex(), entry.getValue(), caveGrid));
+
+        caveGrid.values().forEach(rl -> setAdjent(rl, caveGrid));
+        caveGrid.get(0, 0).setDistance(0L);
         return caveGrid;
+    }
+
+    private void setAdjent(RiskLevel rl, Table<Integer, Integer, RiskLevel> caveGrid) {
+        if (caveGrid.contains(rl.getRow() - 1, rl.getColumn())) {
+            rl.setUp(caveGrid.get(rl.getRow() - 1, rl.getColumn()));
+        }
+        if (caveGrid.contains(rl.getRow() + 1, rl.getColumn())) {
+            rl.setDown(caveGrid.get(rl.getRow() + 1, rl.getColumn()));
+        }
+        if (caveGrid.contains(rl.getRow(), rl.getColumn() - 1)) {
+            rl.setLeft(caveGrid.get(rl.getRow(), rl.getColumn() - 1));
+        }
+        if (caveGrid.contains(rl.getRow(), rl.getColumn() + 1)) {
+            rl.setRight(caveGrid.get(rl.getRow(), rl.getColumn() + 1));
+        }
     }
 
     private void parseRow(long rowNr, String row, Table<Integer, Integer, RiskLevel> caveGrid) {

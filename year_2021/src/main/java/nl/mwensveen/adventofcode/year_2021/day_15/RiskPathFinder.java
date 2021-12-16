@@ -1,7 +1,9 @@
 package nl.mwensveen.adventofcode.year_2021.day_15;
 
 import com.google.common.collect.Table;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,49 +11,27 @@ public class RiskPathFinder {
 
     long findShortestPath(List<String> input) {
         RiskLevelParser parser = new RiskLevelParser();
-        Table<Integer, Integer, RiskLevel> caveGrid = parser.parseInput(input);
+        Table<Integer, Integer, RiskLevel> cave = parser.parseInput(input);
+        RiskLevel last = cave.get(cave.rowKeySet().size() - 1, cave.columnKeySet().size() - 1);
 
-        Optional<Integer> maxRow = caveGrid.rowKeySet().stream().max(Comparator.comparingInt(i -> i));
-        Optional<Integer> maxColumn = caveGrid.columnKeySet().stream().max(Comparator.comparingInt(i -> i));
+        // Optional<RiskLevel> current = cave.values().stream().filter(rl -> !rl.isVisited()).min(Comparator.comparingLong(rl -> rl.getDistance()));
+        Collection<RiskLevel> unvisited = new HashSet(cave.values());
+        Optional<RiskLevel> current = unvisited.stream().min(Comparator.comparingLong(rl -> rl.getDistance()));
+        while (current.isPresent()) {
+            processCurrent(current.get(), cave);
+            unvisited.remove(current.get());
+            current = unvisited.stream().min(Comparator.comparingLong(rl -> rl.getDistance()));
+        }
 
-        RiskPath riskPath = new RiskPath();
-        RiskPathStatistics riskPathStatistics = new RiskPathStatistics(maxRow.get(), maxColumn.get());
-        findRiskPath(0, 0, riskPath, caveGrid, riskPathStatistics);
-        return riskPathStatistics.getMinPath();
+        return last.getDistance();
     }
 
-    private void findRiskPath(int r, int c, RiskPath riskPath, Table<Integer, Integer, RiskLevel> caveGrid, RiskPathStatistics riskPathStatistics) {
-        // System.out.println(r + " " + c);
-        // does not exist
-        if (!caveGrid.contains(r, c)) {
-            return;
-        }
-        RiskLevel riskLevel = caveGrid.get(r, c);
+    private void processCurrent(RiskLevel current, Table<Integer, Integer, RiskLevel> cave) {
+        current.notVisitedAdjents().forEach(a -> setDistance(a, current.getDistance()));
+        current.setVisited(true);
+    }
 
-        // already visited
-        if (riskPath.contains(riskLevel)) {
-            return;
-        }
-
-        riskPath.addRiskLevel(riskLevel);
-
-        // larger then current minPath
-        if (riskPath.getTotalRisk() >= riskPathStatistics.getMinPath()) {
-            return;
-        }
-        if ((riskPathStatistics.getMaxRow() - r) + (riskPathStatistics.getMaxColumn() - c) + riskPath.getTotalRisk() >= riskPathStatistics.getMinPath()) {
-            return;
-        }
-
-        // reach end
-        if (riskPathStatistics.getMaxRow() == riskLevel.getRow() && riskPathStatistics.getMaxColumn() == riskLevel.getColumn()) {
-            riskPathStatistics.setMinPath(riskPath.getTotalRisk());
-            return;
-        }
-
-        findRiskPath(r + 1, c, riskPath.copy(), caveGrid, riskPathStatistics);
-        findRiskPath(r, c + 1, riskPath.copy(), caveGrid, riskPathStatistics);
-        findRiskPath(r, c - 1, riskPath.copy(), caveGrid, riskPathStatistics);
-        findRiskPath(r - 1, c, riskPath.copy(), caveGrid, riskPathStatistics);
+    private void setDistance(RiskLevel a, long distance) {
+        a.setDistance(Math.min(a.getDistance(), distance + a.getRisk()));
     }
 }
