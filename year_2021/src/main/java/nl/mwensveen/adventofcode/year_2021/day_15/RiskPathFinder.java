@@ -15,7 +15,7 @@ public class RiskPathFinder {
         RiskLevel last = cave.get(cave.rowKeySet().size() - 1, cave.columnKeySet().size() - 1);
 
         // Optional<RiskLevel> current = cave.values().stream().filter(rl -> !rl.isVisited()).min(Comparator.comparingLong(rl -> rl.getDistance()));
-        Collection<RiskLevel> unvisited = new HashSet(cave.values());
+        Collection<RiskLevel> unvisited = new HashSet<>(cave.values());
         Optional<RiskLevel> current = unvisited.stream().min(Comparator.comparingLong(rl -> rl.getDistance()));
         while (current.isPresent()) {
             processCurrent(current.get(), cave);
