@@ -16,14 +16,15 @@ public class ChitonSolution extends AbstractTimedSolution {
     @Override
     protected void part1() {
         RiskPathFinder riskPathFinder = new RiskPathFinder();
-        long result = riskPathFinder.findShortestPath(input);
+        long result = riskPathFinder.findShortestPath(input, 1);
         System.out.println("Lowest total risk of any path from the top left to the bottom right: " + result);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        RiskPathFinder riskPathFinder = new RiskPathFinder();
+        long result = riskPathFinder.findShortestPath(input, 5);
+        System.out.println("Lowest total risk of any path from the top left to the bottom right with extended cave: " + result);
     }
 
     public static void main(String[] args) {

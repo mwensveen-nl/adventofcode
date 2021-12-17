@@ -122,7 +122,7 @@ public class RiskLevel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("row", row).add("column", column).add("visited", visited).add("distance", distance).toString();
+        return MoreObjects.toStringHelper(this).add("row", row).add("column", column).add("risk", risk).add("visited", visited).add("distance", distance).toString();
     }
 
 }

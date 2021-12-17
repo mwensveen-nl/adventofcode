@@ -9,12 +9,11 @@ import java.util.Optional;
 
 public class RiskPathFinder {
 
-    long findShortestPath(List<String> input) {
+    long findShortestPath(List<String> input, int times) {
         RiskLevelParser parser = new RiskLevelParser();
-        Table<Integer, Integer, RiskLevel> cave = parser.parseInput(input);
+        Table<Integer, Integer, RiskLevel> cave = parser.parseInput(input, times);
         RiskLevel last = cave.get(cave.rowKeySet().size() - 1, cave.columnKeySet().size() - 1);
 
-        // Optional<RiskLevel> current = cave.values().stream().filter(rl -> !rl.isVisited()).min(Comparator.comparingLong(rl -> rl.getDistance()));
         Collection<RiskLevel> unvisited = new HashSet<>(cave.values());
         Optional<RiskLevel> current = unvisited.stream().min(Comparator.comparingLong(rl -> rl.getDistance()));
         while (current.isPresent()) {
