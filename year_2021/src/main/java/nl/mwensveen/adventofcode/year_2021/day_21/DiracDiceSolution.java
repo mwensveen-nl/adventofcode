@@ -17,7 +17,7 @@ public class DiracDiceSolution extends AbstractTimedSolution {
 	@Override
 	protected void part1() {
 		Game game = new Game();
-		long result = game.playGame(input);
+		long result = game.playGame(input, 1000);
 		System.out.println("Result of multiply the score of the losing player by the number of times the die was rolled during the game: " + result);
 	}
 

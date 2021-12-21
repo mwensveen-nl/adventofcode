@@ -15,7 +15,7 @@ public class GameTest {
 				"Player 2 starting position: 8");
 
 		Game game = new Game();
-		long result = game.playGame(input);
+		long result = game.playGame(input, 1000);
 		assertEquals(739785L, result);
 	}
 
