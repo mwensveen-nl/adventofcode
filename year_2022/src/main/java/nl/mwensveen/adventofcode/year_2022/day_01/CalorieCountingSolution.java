@@ -7,6 +7,7 @@ import nl.mwensveen.adventofcode.year_2022.FileReadHelper;
 public class CalorieCountingSolution extends AbstractTimedSolution {
 
     private List<String> input;
+    CalorieCounter calorieCounter = new CalorieCounter();
 
     @Override
     protected void init() {
@@ -15,16 +16,14 @@ public class CalorieCountingSolution extends AbstractTimedSolution {
 
     @Override
     protected void part1() {
-        CalorieCounter calorieCounter = new CalorieCounter();
         Long mostCalories = calorieCounter.countMostCalories(input);
         System.out.println("Most calories caried by an elf: " + mostCalories);
-
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        Long sumThreeCalories = calorieCounter.countThreeMostCalories(input);
+        System.out.println("Sum of top three calories caried by  elf: " + sumThreeCalories);
     }
 
     public static void main(String[] args) {

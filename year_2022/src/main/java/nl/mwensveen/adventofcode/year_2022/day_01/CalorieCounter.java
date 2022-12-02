@@ -5,10 +5,29 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 public class CalorieCounter {
 
     public Long countMostCalories(List<String> input) {
+        List<Long> calsPerElf = caloriesPerElf(input);
+
+        Optional<Long> max = calsPerElf.stream().max(Comparator.naturalOrder());
+
+        return max.get();
+
+    }
+
+    public Long countThreeMostCalories(List<String> input) {
+        List<Long> calsPerElf = caloriesPerElf(input);
+
+        Optional<Long> max = calsPerElf.stream().max(Comparator.naturalOrder());
+        Long sumThree = calsPerElf.stream().sorted(Comparator.reverseOrder()).limit(3).collect(Collectors.summingLong(Long::longValue));
+        return sumThree;
+
+    }
+
+    private List<Long> caloriesPerElf(List<String> input) {
         List<Long> calsPerElf = new ArrayList<>();
 
         AtomicLong cals = new AtomicLong();
@@ -21,10 +40,6 @@ public class CalorieCounter {
             }
         });
         calsPerElf.add(cals.longValue());
-
-        Optional<Long> max = calsPerElf.stream().max(Comparator.naturalOrder());
-
-        return max.get();
-
+        return calsPerElf;
     }
 }

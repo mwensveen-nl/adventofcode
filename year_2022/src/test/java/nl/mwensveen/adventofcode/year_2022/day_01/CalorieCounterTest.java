@@ -29,4 +29,11 @@ public class CalorieCounterTest {
         assertEquals(24000, mostCalories);
     }
 
+    @Test
+    public void testCountThreeMostCalories() {
+        CalorieCounter calorieCounter = new CalorieCounter();
+        Long sumCalories = calorieCounter.countThreeMostCalories(input.lines().toList());
+        assertEquals(45000, sumCalories);
+    }
+
 }
