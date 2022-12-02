@@ -28,12 +28,28 @@ public enum Shape {
 	 */
 	public int wins(Shape other) {
 		if (this.equals(other)) {
-			return 3; // draw
+			return Result.DRAW.getScore();
 		}
 		if (this.winsFrom.equals(other.opponent)) {
-			return 6; // win
+			return Result.WIN.getScore();
 		}
-		return 0; // loss
+		return Result.LOSE.getScore();
+	}
+
+	/**
+	 * Gets the shape I need to get the result against this opponent.
+	 *
+	 * @param r the needed Result
+	 * @return the self for result
+	 */
+	public Shape getSelfForResult(Result r) {
+		if (r.equals(Result.DRAW)) {
+			return this;
+		}
+		if (r.equals(Result.WIN)) {
+			return findWinsFrom(opponent);
+		}
+		return findOppponent(winsFrom);
 	}
 
 	public static Shape findOppponent(String opponent) {
@@ -52,6 +68,15 @@ public enum Shape {
 			}
 		}
 		throw new RuntimeException("Invalid Shape requested " + self);
+	}
+
+	private static Shape findWinsFrom(String winsFrom) {
+		for (Shape elem : Shape.values()) {
+			if (elem.winsFrom.equals(winsFrom)) {
+				return elem;
+			}
+		}
+		throw new RuntimeException("Invalid Shape requested " + winsFrom);
 	}
 
 }

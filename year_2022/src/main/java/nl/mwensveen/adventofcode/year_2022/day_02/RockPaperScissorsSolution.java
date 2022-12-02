@@ -8,6 +8,7 @@ import nl.mwensveen.adventofcode.year_2022.FileReadHelper;
 public class RockPaperScissorsSolution extends AbstractTimedSolution {
 
 	private List<String> input;
+	private RockPaperScissorsCalculator calculator = new RockPaperScissorsCalculator();
 
 	@Override
 	protected void init() {
@@ -16,16 +17,15 @@ public class RockPaperScissorsSolution extends AbstractTimedSolution {
 
 	@Override
 	protected void part1() {
-		RockPaperScissorsCalculator calculator = new RockPaperScissorsCalculator();
-		int score = calculator.playTournament(input);
+		int score = calculator.playTournamentTwoShapes(input);
 		System.out.println("Total score if everything goes exactly according to your strategy guide: " + score);
 
 	}
 
 	@Override
 	protected void part2() {
-		// TODO Auto-generated method stub
-
+		int score = calculator.playTournamentShapeAndResult(input);
+		System.out.println("Following the Elves instructions, total score if everything goes exactly according to your strategy guide: " + score);
 	}
 
 	public static void main(String[] args) {

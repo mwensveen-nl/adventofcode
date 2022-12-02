@@ -28,9 +28,25 @@ public class RockPaperScissorsCalculatorTest {
 	}
 
 	@Test
-	public void testPlayTournament() {
-		int score = calculator.playTournament(input.lines().toList());
+	public void testPlayTournamentTwoShapes() {
+		int score = calculator.playTournamentTwoShapes(input.lines().toList());
 		assertEquals(15, score);
+	}
+
+	@Test
+	public void testCalculateRoundShapeResult() {
+		assertEquals(3, calculator.calculateRound(Shape.findOppponent("A"), Result.find("X")));
+		assertEquals(4, calculator.calculateRound(Shape.findOppponent("A"), Result.find("Y")));
+		assertEquals(8, calculator.calculateRound(Shape.findOppponent("A"), Result.find("Z")));
+
+		assertEquals(1, calculator.calculateRound(Shape.findOppponent("B"), Result.find("X")));
+		assertEquals(5, calculator.calculateRound(Shape.findOppponent("B"), Result.find("Y")));
+		assertEquals(9, calculator.calculateRound(Shape.findOppponent("B"), Result.find("Z")));
+
+		assertEquals(2, calculator.calculateRound(Shape.findOppponent("C"), Result.find("X")));
+		assertEquals(6, calculator.calculateRound(Shape.findOppponent("C"), Result.find("Y")));
+		assertEquals(7, calculator.calculateRound(Shape.findOppponent("C"), Result.find("Z")));
+
 	}
 
 }
