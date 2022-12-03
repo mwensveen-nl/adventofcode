@@ -27,8 +27,20 @@ public class RucksackInspectorTest {
     }
 
     @Test
-    public void testInspectRucksacks() {
-        assertEquals(157, rucksackInspector.inspectRucksacks(input.lines().toList()));
+    public void testInspectSingleRucksacks() {
+        assertEquals(157, rucksackInspector.inspectSingleRucksacks(input.lines().toList()));
+    }
+
+    @Test
+    public void testInspectRucksackTriple() {
+        assertEquals(18, rucksackInspector.inspectRucksackTriple("vJrwpWtwJgWrhcsFMMfFFhFp", "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "PmmdzqPrVvPwwTWBwg"));
+        assertEquals(52, rucksackInspector.inspectRucksackTriple("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn", "ttgJtRGJQctTZtZT", "CrZsJsPPZsGzwwsLwLmpwMDw"));
+    }
+
+    @Test
+    public void testInspectTripleRucksacks() {
+        int prio = rucksackInspector.inspectTripleRucksacks(input.lines().toList());
+        assertEquals(70, prio);
     }
 
 }

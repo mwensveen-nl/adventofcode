@@ -16,14 +16,14 @@ public class RucksackReorganizationSolution extends AbstractTimedSolution {
 
     @Override
     protected void part1() {
-        int priorities = rucksackInspector.inspectRucksacks(input);
+        int priorities = rucksackInspector.inspectSingleRucksacks(input);
         System.out.println("The sum of the priorities of item types that appears in both compartments of each rucksack: " + priorities);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        int priorities = rucksackInspector.inspectTripleRucksacks(input);
+        System.out.println("The sum of the priorities of the item type that corresponds to the badges of each three-Elf group: " + priorities);
     }
 
     public static void main(String[] args) {
