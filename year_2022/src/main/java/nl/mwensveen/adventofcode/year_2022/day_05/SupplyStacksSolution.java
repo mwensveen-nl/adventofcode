@@ -24,7 +24,7 @@ public class SupplyStacksSolution extends AbstractTimedSolution {
 		StacksCreator stacksCreator = new StacksCreator();
 		Map<Integer, Stack<String>> stacks = stacksCreator.createStacks(inputStacks);
 		MoveCratesProcessor moveCratesProcessor = new MoveCratesProcessor();
-		moveCratesProcessor.processInstructions(inputMoves, stacks);
+		moveCratesProcessor.processInstructionsOneCrateAtATime(inputMoves, stacks);
 		StacksInspector stacksInspector = new StacksInspector();
 		String topCratesOfStacks = stacksInspector.inpectTopCratesOfStacks(stacks);
 
@@ -33,8 +33,15 @@ public class SupplyStacksSolution extends AbstractTimedSolution {
 
 	@Override
 	protected void part2() {
-		// TODO Auto-generated method stub
+		StacksCreator stacksCreator = new StacksCreator();
+		Map<Integer, Stack<String>> stacks = stacksCreator.createStacks(inputStacks);
+		MoveCratesProcessor moveCratesProcessor = new MoveCratesProcessor();
+		moveCratesProcessor.processInstructionsMoreCratesAtATime(inputMoves, stacks);
+		StacksInspector stacksInspector = new StacksInspector();
+		String topCratesOfStacks = stacksInspector.inpectTopCratesOfStacks(stacks);
 
+		System.out.println(
+				"After the rearrangement procedure completes ny the CrateMover 9001, the crate that ends up on top of each stack: " + topCratesOfStacks);
 	}
 
 	public static void main(String[] args) {

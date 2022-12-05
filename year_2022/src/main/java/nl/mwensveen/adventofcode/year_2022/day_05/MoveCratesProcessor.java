@@ -10,11 +10,11 @@ import java.util.stream.IntStream;
 public class MoveCratesProcessor {
 	private final Pattern PATTERN = Pattern.compile("move (\\d+) from (\\d+) to (\\d+)", Pattern.CASE_INSENSITIVE);
 
-	public void processInstructions(List<String> lines, Map<Integer, Stack<String>> stacks) {
-		lines.stream().forEach(l -> moveCrates(l, stacks));
+	public void processInstructionsOneCrateAtATime(List<String> lines, Map<Integer, Stack<String>> stacks) {
+		lines.stream().forEach(l -> moveCratesOneCrateAtATime(l, stacks));
 	}
 
-	public void moveCrates(String instruction, Map<Integer, Stack<String>> stacks) {
+	public void moveCratesOneCrateAtATime(String instruction, Map<Integer, Stack<String>> stacks) {
 		Matcher matcher = PATTERN.matcher(instruction);
 		matcher.matches();
 		// group 0 = the whole match
@@ -23,5 +23,22 @@ public class MoveCratesProcessor {
 		int to = Integer.parseInt(matcher.group(3));
 
 		IntStream.range(0, number).forEach(i -> stacks.get(to).push(stacks.get(from).pop()));
+	}
+
+	public void processInstructionsMoreCratesAtATime(List<String> lines, Map<Integer, Stack<String>> stacks) {
+		lines.stream().forEach(l -> moveCratesMoreCratesAtATime(l, stacks));
+	}
+
+	public void moveCratesMoreCratesAtATime(String instruction, Map<Integer, Stack<String>> stacks) {
+		Matcher matcher = PATTERN.matcher(instruction);
+		matcher.matches();
+		// group 0 = the whole match
+		int number = Integer.parseInt(matcher.group(1));
+		int from = Integer.parseInt(matcher.group(2));
+		int to = Integer.parseInt(matcher.group(3));
+
+		Stack<String> temp = new Stack<String>();
+		IntStream.range(0, number).forEach(i -> temp.push(stacks.get(from).pop()));
+		IntStream.range(0, number).forEach(i -> stacks.get(to).push(temp.pop()));
 	}
 }
