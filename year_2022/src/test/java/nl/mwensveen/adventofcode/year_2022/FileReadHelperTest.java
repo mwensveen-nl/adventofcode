@@ -15,4 +15,10 @@ public class FileReadHelperTest {
         assertEquals(1456, integers.get(5).intValue());
     }
 
+    @Test
+    public void testReadLineAsStrings() {
+        String s = FileReadHelper.readLineAsString("test_01");
+        assertEquals("1721", s);
+    }
+
 }

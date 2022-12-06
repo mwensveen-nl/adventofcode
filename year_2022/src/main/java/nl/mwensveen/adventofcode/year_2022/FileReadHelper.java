@@ -64,4 +64,21 @@ public final class FileReadHelper {
         return ImmutableList.copyOf(lines);
     }
 
+    /**
+     * Read first (and only?) line of the file and return as String.
+     *
+     * @param fileName the file name
+     * @return an immutable list
+     */
+    public static String readLineAsString(String fileName) {
+        URL url = Resources.getResource(fileName);
+        String line;
+        try {
+            line = Files.readFirstLine(new File(url.getFile()), Charset.defaultCharset());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return line;
+    }
+
 }
