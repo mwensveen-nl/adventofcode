@@ -22,8 +22,8 @@ public class CampCleanupSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        long count = assignmentInspector.countOverlapOther(input);
+        System.out.println("Number of assignment pairs that do overlap?: " + count);
     }
 
     public static void main(String[] args) {
