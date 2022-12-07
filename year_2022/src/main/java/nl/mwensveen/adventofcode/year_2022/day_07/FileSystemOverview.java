@@ -15,7 +15,7 @@ public class FileSystemOverview {
 		} else if (cmd.equals("$ ls")) {
 			// ignore
 		} else if (cmd.startsWith("dir")) {
-			current.addDirectory(cmd.substring(4));
+			current.addChildDirectory(cmd.substring(4));
 		} else {
 			// file
 			String[] split = cmd.split(" ");

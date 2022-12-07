@@ -47,7 +47,7 @@ public class Directory {
 		return dirSize;
 	}
 
-	public void addDirectory(String name) {
+	public void addChildDirectory(String name) {
 		new Directory(name, this);
 	}
 
@@ -62,7 +62,7 @@ public class Directory {
 	}
 
 	public Directory toChildDir(String findName) {
-		return children.stream().peek(d -> System.out.println(d.name)).filter(d -> d.name.equals(findName)).findFirst().get();
+		return children.stream().filter(d -> d.name.equals(findName)).findFirst().get();
 	}
 
 }
