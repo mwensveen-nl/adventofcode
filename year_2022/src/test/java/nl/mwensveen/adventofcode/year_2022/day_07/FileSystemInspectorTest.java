@@ -40,4 +40,13 @@ public class FileSystemInspectorTest {
 		assertEquals(95437L, size);
 	}
 
+	@Test
+	public void testFindSmallestDirectoryWithSize() {
+		FileSystemCreator creator = new FileSystemCreator();
+		FileSystemOverview fileSystem = creator.createFileSystem(input.lines().toList());
+		FileSystemInspector inspector = new FileSystemInspector();
+		Long size = inspector.findSmallestDirectoryWithSize(fileSystem, 30000000 - (70000000 - fileSystem.getRoot().getDirSize()));
+		assertEquals(24933642L, size);
+	}
+
 }

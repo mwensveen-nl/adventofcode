@@ -21,7 +21,6 @@ public class FileSystemOverview {
 			String[] split = cmd.split(" ");
 			current.addFile(split[1], Long.valueOf(split[0]));
 		}
-		System.out.println(cmd);
 	}
 
 	public Directory getRoot() {
