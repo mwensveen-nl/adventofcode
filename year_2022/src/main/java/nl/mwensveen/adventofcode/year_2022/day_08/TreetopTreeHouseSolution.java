@@ -27,8 +27,9 @@ public class TreetopTreeHouseSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        ScenicScoreFinder scenicScoreFinder = new ScenicScoreFinder();
+        int scenicScore = scenicScoreFinder.findScenicScore(forest);
+        System.out.println("The highest scenic score possible for any tree: " + scenicScore);
     }
 
     public static void main(String[] args) {
