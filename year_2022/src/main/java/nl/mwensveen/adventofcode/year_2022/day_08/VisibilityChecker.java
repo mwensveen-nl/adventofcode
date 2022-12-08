@@ -11,8 +11,8 @@ public class VisibilityChecker {
         int counter = 0;
         maxRow = forest.rowKeySet().size() - 1;
         maxColumn = forest.columnKeySet().size() - 1;
-        for (int r = 0; r < forest.rowKeySet().size(); r++) {
-            for (int c = 0; c < forest.columnKeySet().size(); c++) {
+        for (int r = 0; r <= maxRow; r++) {
+            for (int c = 0; c <= maxColumn; c++) {
                 boolean visibilityForTree = checkVisibilityForTree(forest, r, c);
                 if (visibilityForTree) {
                     counter++;
