@@ -1,6 +1,7 @@
 package nl.mwensveen.adventofcode.year_2022.day_08;
 
 import com.google.common.collect.Table;
+import java.util.stream.IntStream;
 
 public class ScenicScoreFinder {
 
@@ -8,17 +9,9 @@ public class ScenicScoreFinder {
     private int maxColumn;
 
     public int findScenicScore(Table<Integer, Integer, Tree> forest) {
-        int counter = 0;
         maxRow = forest.rowKeySet().size() - 1;
         maxColumn = forest.columnKeySet().size() - 1;
-        int maxScore = 0;
-        for (int r = 1; r < maxRow; r++) {
-            for (int c = 1; c < maxColumn; c++) {
-                int score = calculateScenicScore(forest, r, c);
-                maxScore = Math.max(maxScore, score);
-            }
-        }
-        return maxScore;
+        return IntStream.range(1, maxRow).map(r -> IntStream.range(1, maxColumn).map(c -> calculateScenicScore(forest, r, c)).max().getAsInt()).max().getAsInt();
     }
 
     private int calculateScenicScore(Table<Integer, Integer, Tree> forest, int r, int c) {

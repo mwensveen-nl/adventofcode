@@ -1,25 +1,17 @@
 package nl.mwensveen.adventofcode.year_2022.day_08;
 
 import com.google.common.collect.Table;
+import java.util.stream.IntStream;
 
 public class VisibilityChecker {
 
     private int maxRow;
     private int maxColumn;
 
-    public int checkVisibility(Table<Integer, Integer, Tree> forest) {
-        int counter = 0;
+    public long checkVisibility(Table<Integer, Integer, Tree> forest) {
         maxRow = forest.rowKeySet().size() - 1;
         maxColumn = forest.columnKeySet().size() - 1;
-        for (int r = 0; r <= maxRow; r++) {
-            for (int c = 0; c <= maxColumn; c++) {
-                boolean visibilityForTree = checkVisibilityForTree(forest, r, c);
-                if (visibilityForTree) {
-                    counter++;
-                }
-            }
-        }
-        return counter;
+        return IntStream.rangeClosed(0, maxRow).mapToLong(r -> IntStream.rangeClosed(0, maxColumn).mapToObj(c -> checkVisibilityForTree(forest, r, c)).filter(b -> b).count()).sum();
     }
 
     private boolean checkVisibilityForTree(Table<Integer, Integer, Tree> forest, int r, int c) {

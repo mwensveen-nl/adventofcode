@@ -20,7 +20,7 @@ public class TreetopTreeHouseSolution extends AbstractTimedSolution {
     @Override
     protected void part1() {
         VisibilityChecker visibilityChecker = new VisibilityChecker();
-        int visibility = visibilityChecker.checkVisibility(forest);
+        long visibility = visibilityChecker.checkVisibility(forest);
         System.out.println("Number of trees that are visible from outside the grid: " + visibility);
 
     }

@@ -22,7 +22,7 @@ public class VisibilityCheckerTest {
         Table<Integer, Integer, Tree> forest = forestParser.parse(input.lines().toList());
 
         VisibilityChecker visibilityChecker = new VisibilityChecker();
-        int visibility = visibilityChecker.checkVisibility(forest);
+        long visibility = visibilityChecker.checkVisibility(forest);
 
         assertEquals(21, visibility);
 
