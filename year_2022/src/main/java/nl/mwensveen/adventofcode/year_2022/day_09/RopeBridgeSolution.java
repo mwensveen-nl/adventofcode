@@ -1,6 +1,5 @@
 package nl.mwensveen.adventofcode.year_2022.day_09;
 
-import java.util.HashSet;
 import java.util.List;
 
 import nl.mwensveen.adventofcode.year_2022.AbstractTimedSolution;
@@ -9,6 +8,7 @@ import nl.mwensveen.adventofcode.year_2022.FileReadHelper;
 public class RopeBridgeSolution extends AbstractTimedSolution {
 
 	private List<String> input;
+	private RopeMover ropeMover = new RopeMover();
 
 	@Override
 	protected void init() {
@@ -17,16 +17,16 @@ public class RopeBridgeSolution extends AbstractTimedSolution {
 
 	@Override
 	protected void part1() {
-		RopeMover ropeMover = new RopeMover();
-		Rope rope = new Rope(new Position(0, 0), new Position(0, 0), new HashSet<>());
+		Rope rope = new Rope(2);
 		Rope result = ropeMover.multipleMoveRope(rope, input);
-		System.out.println("Number of positions the tail of the rope visited at least once: " + result.tPositions().size());
+		System.out.println("Number of positions the tail of the rope with 2 knots visited at least once: " + result.sizeTPositions());
 	}
 
 	@Override
 	protected void part2() {
-		// TODO Auto-generated method stub
-
+		Rope rope = new Rope(10);
+		Rope result = ropeMover.multipleMoveRope(rope, input);
+		System.out.println("Number of positions the tail of the rope with 10 knots visited at least once: " + result.sizeTPositions());
 	}
 
 	public static void main(String[] args) {

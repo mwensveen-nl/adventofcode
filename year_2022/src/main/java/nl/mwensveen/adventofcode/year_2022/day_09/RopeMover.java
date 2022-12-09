@@ -1,7 +1,6 @@
 package nl.mwensveen.adventofcode.year_2022.day_09;
 
 import java.util.List;
-import java.util.Set;
 
 public class RopeMover {
 
@@ -26,20 +25,32 @@ public class RopeMover {
 	}
 
 	private Rope moveOneStep(Rope rope, String direction) {
-		Position h = rope.h();
-		Position t = rope.t();
-		Set<Position> tPositions = rope.tPositions();
+		int size = rope.size();
 
-		h = switch (direction) {
-			case "R" -> new Position(h.row(), h.column() + 1);
-			case "L" -> new Position(h.row(), h.column() - 1);
-			case "U" -> new Position(h.row() + 1, h.column());
-			case "D" -> new Position(h.row() - 1, h.column());
+		Position leader = rope.get(0);
+		leader = switch (direction) {
+			case "R" -> new Position(leader.row(), leader.column() + 1);
+			case "L" -> new Position(leader.row(), leader.column() - 1);
+			case "U" -> new Position(leader.row() + 1, leader.column());
+			case "D" -> new Position(leader.row() - 1, leader.column());
 			default -> throw new IllegalArgumentException("Unexpected value: " + direction);
 		};
+		rope.replace(0, leader);
 
-		int rowDif = h.row() - t.row();
-		int columnDif = h.column() - t.column();
+		Position follower = null;
+		for (int i = 1; i < size; i++) {
+			follower = rope.get(i);
+			follower = follow(leader, follower);
+			rope.replace(i, follower);
+			leader = follower;
+		}
+		rope.addTPosition(follower);
+		return rope;
+	}
+
+	private Position follow(Position leader, Position follower) {
+		int rowDif = leader.row() - follower.row();
+		int columnDif = leader.column() - follower.column();
 		if (Math.abs(rowDif) > 1 || Math.abs(columnDif) > 1) {
 			if (rowDif < 0) {
 				rowDif--;
@@ -51,9 +62,8 @@ public class RopeMover {
 			} else {
 				columnDif++;
 			}
-			t = new Position(t.row() + rowDif / 2, t.column() + columnDif / 2);
+			follower = new Position(follower.row() + rowDif / 2, follower.column() + columnDif / 2);
 		}
-		tPositions.add(t);
-		return new Rope(h, t, tPositions);
+		return follower;
 	}
 }
