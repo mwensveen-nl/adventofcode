@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ProgramExecution {
 
-    public int executeProgram(List<String> input) {
+    public int executeSummingProgram(List<String> input) {
         Cycle c = new Cycle(0, 0, 1, 1);
         EvaluateCycle evalCycle = new EvaluateCycle();
         for (String instruction : input) {
@@ -15,6 +15,18 @@ public class ProgramExecution {
             }
         }
         return evalCycle.getSum();
+    }
+
+    public CRTscreen executeDrawingProgram(List<String> input) {
+        CRTscreen crtScreen = new CRTscreen();
+        Cycle c = new Cycle(0, 0, 1, 1);
+        
+        input.stream().reduce(null, null, null)
+        for (String instruction : input) {
+            c = executeInstruction(instruction, c);
+            crtScreen.draw(c);
+        }
+        return crtScreen;
     }
 
     public Cycle executeInstruction(String instruction, Cycle current) {

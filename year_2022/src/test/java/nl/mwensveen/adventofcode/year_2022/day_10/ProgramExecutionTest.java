@@ -217,9 +217,19 @@ public class ProgramExecutionTest {
     }
 
     @Test
-    public void testExecuteProgram() {
-        int sum = programExecution.executeProgram(input.lines().toList());
+    public void testExecuteSummingProgram() {
+        int sum = programExecution.executeSummingProgram(input.lines().toList());
         assertEquals(13140, sum);
     }
 
+    @Test
+    public void testExecuteDrawingProgram() {
+        CRTscreen crtScreen = programExecution.executeDrawingProgram(input.lines().toList());
+        assertEquals("##..##..##..##..##..##..##..##..##..##..", crtScreen.getRow(0));
+        assertEquals("###...###...###...###...###...###...###.", crtScreen.getRow(1));
+        assertEquals("####....####....####....####....####....", crtScreen.getRow(2));
+        assertEquals("#####.....#####.....#####.....#####.....", crtScreen.getRow(3));
+        assertEquals("######......######......######......####", crtScreen.getRow(4));
+        assertEquals("#######.......#######.......#######.....", crtScreen.getRow(5));
+    }
 }

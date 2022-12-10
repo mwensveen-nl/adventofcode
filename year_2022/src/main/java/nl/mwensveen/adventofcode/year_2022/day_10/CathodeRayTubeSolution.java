@@ -6,6 +6,7 @@ import nl.mwensveen.adventofcode.year_2022.FileReadHelper;
 
 public class CathodeRayTubeSolution extends AbstractTimedSolution {
 
+    private ProgramExecution programExecution = new ProgramExecution();
     private List<String> input;
 
     @Override
@@ -15,15 +16,15 @@ public class CathodeRayTubeSolution extends AbstractTimedSolution {
 
     @Override
     protected void part1() {
-        ProgramExecution programExecution = new ProgramExecution();
-        int sum = programExecution.executeProgram(input);
+        int sum = programExecution.executeSummingProgram(input);
         System.out.println("The sum of the six signal strengths: " + sum);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        CRTscreen screen = programExecution.executeDrawingProgram(input);
+        System.out.println("Eight capital letters appear on the CRT");
+        screen.toScreen();
     }
 
     public static void main(String[] args) {
