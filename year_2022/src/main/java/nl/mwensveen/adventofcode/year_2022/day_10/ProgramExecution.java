@@ -19,13 +19,14 @@ public class ProgramExecution {
 
     public CRTscreen executeDrawingProgram(List<String> input) {
         CRTscreen crtScreen = new CRTscreen();
-        Cycle c = new Cycle(0, 0, 1, 1);
-
-        for (String instruction : input) {
-            c = executeInstruction(instruction, c);
-            crtScreen.draw(c);
-        }
+        input.stream().sequential().reduce(new Cycle(0, 0, 1, 1), (cycle, s) -> processCycleOnScreen(crtScreen, cycle, s), (c1, c2) -> c2);
         return crtScreen;
+    }
+
+    private Cycle processCycleOnScreen(CRTscreen crtScreen, Cycle cycle, String s) {
+        Cycle newCycle = executeInstruction(s, cycle);
+        crtScreen.draw(newCycle);
+        return newCycle;
     }
 
     public Cycle executeInstruction(String instruction, Cycle current) {

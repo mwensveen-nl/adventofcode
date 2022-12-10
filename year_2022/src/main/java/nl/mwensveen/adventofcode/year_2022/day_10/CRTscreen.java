@@ -22,11 +22,7 @@ public class CRTscreen {
 
     public void draw(Cycle c) {
         List<Integer> sprite = sprite(c);
-        positions(c).forEach(i -> {
-            if (sprite.contains(i % 40)) {
-                screen.put(i, Boolean.TRUE);
-            }
-        });
+        positions(c).filter(i -> sprite.contains(i % 40)).forEach(i -> screen.put(i, Boolean.TRUE));
     }
 
     public String getRow(int row) {
