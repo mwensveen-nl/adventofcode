@@ -20,8 +20,7 @@ public class ProgramExecution {
     public CRTscreen executeDrawingProgram(List<String> input) {
         CRTscreen crtScreen = new CRTscreen();
         Cycle c = new Cycle(0, 0, 1, 1);
-        
-        input.stream().reduce(null, null, null)
+
         for (String instruction : input) {
             c = executeInstruction(instruction, c);
             crtScreen.draw(c);
