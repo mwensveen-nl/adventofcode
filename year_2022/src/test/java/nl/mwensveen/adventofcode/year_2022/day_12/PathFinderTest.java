@@ -13,15 +13,22 @@ public class PathFinderTest {
             abdefghi
                     """;
 
-    @Test
-    public void testFindShortestPath() {
+    // @Test
+    public void testFindShortestPathFromStart() {
         HeightmapParser parser = new HeightmapParser();
         Heightmap heightmap = parser.parse(input.lines().toList());
         PathFinder pathFinder = new PathFinder();
-        Coordinate coordinate = pathFinder.findShortestPath(heightmap);
+        Coordinate coordinate = pathFinder.findShortestPathFromStart(heightmap);
         assertEquals(31, coordinate.getSteps());
-        System.out.println(coordinate);
-        System.out.println(coordinate.getShortestPath());
+    }
+
+    @Test
+    public void testFindShortestPathFromAnyA() {
+        HeightmapParser parser = new HeightmapParser();
+        Heightmap heightmap = parser.parse(input.lines().toList());
+        PathFinder pathFinder = new PathFinder();
+        Coordinate coordinate = pathFinder.findShortestPathFromAnyA(heightmap);
+        assertEquals(29, coordinate.getSteps());
     }
 
 }

@@ -2,15 +2,13 @@ package nl.mwensveen.adventofcode.year_2022.day_12;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Coordinate {
     private final char elevation;
     private final Integer row;
     private final Integer col;
     private int steps = Integer.MAX_VALUE;
-    private List<Coordinate> shortestPath = new ArrayList<>();
+    // private List<Coordinate> shortestPath = new ArrayList<>();
 
     public Coordinate(char elevation, Integer row, Integer col) {
         super();
@@ -39,17 +37,17 @@ public class Coordinate {
         this.steps = steps;
     }
 
-    public List<Coordinate> getShortestPath() {
-        return shortestPath;
-    }
-
-    public void addToShortestPath(Coordinate coordinate) {
-        shortestPath.add(coordinate);
-    }
-
-    public void setShortestPath(List<Coordinate> shortestPath) {
-        this.shortestPath = new ArrayList<>(shortestPath);
-    }
+    // public List<Coordinate> getShortestPath() {
+    // return shortestPath;
+    // }
+    //
+    // public void addToShortestPath(Coordinate coordinate) {
+    // shortestPath.add(coordinate);
+    // }
+    //
+    // public void setShortestPath(List<Coordinate> shortestPath) {
+    // this.shortestPath = new ArrayList<>(shortestPath);
+    // }
 
     @Override
     public boolean equals(final Object other) {

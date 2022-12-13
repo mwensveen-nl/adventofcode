@@ -18,15 +18,18 @@ public class HillClimbingAlgorithmSolution extends AbstractTimedSolution {
         HeightmapParser heightmapParser = new HeightmapParser();
         Heightmap heightmap = heightmapParser.parse(input);
         PathFinder pathFinder = new PathFinder();
-        Coordinate coordinate = pathFinder.findShortestPath(heightmap);
+        Coordinate coordinate = pathFinder.findShortestPathFromStart(heightmap);
         System.out.println("The fewest steps required to move from the current position to the location that should get the best signal: " + coordinate.getSteps());
 
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        HeightmapParser heightmapParser = new HeightmapParser();
+        Heightmap heightmap = heightmapParser.parse(input);
+        PathFinder pathFinder = new PathFinder();
+        Coordinate coordinate = pathFinder.findShortestPathFromAnyA(heightmap);
+        System.out.println("The fewest steps required to move starting from any square with elevation a to the location that should get the best signal: " + coordinate.getSteps());
     }
 
     public static void main(String[] args) {
