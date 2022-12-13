@@ -1,7 +1,9 @@
 package nl.mwensveen.adventofcode.year_2022.day_11;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import nl.mwensveen.adventofcode.year_2022.day_11.Monkey.Builder;
 
 public class MonkeyParser {
@@ -21,18 +23,41 @@ public class MonkeyParser {
         String sub = in.substring(STARTING_ITEMS_LENGTH);
         String[] split = sub.split(",");
         for (String s : split) {
-            builder.addItems(Integer.parseInt(s.trim()));
+            builder.addItems(BigInteger.valueOf(Long.parseLong(s.trim())));
         }
 
         in = input.get(2).trim();
         sub = in.substring(OPERTION_LENGTH);
         split = sub.split(" ");
-        Operation operation = new Operation(split[0], split[1]);
-        builder.withOperation(operation);
+        Function<BigInteger, BigInteger> f;
+        if (split[1].equals("old")) {
+            if (split[0].equals("+")) {
+                f = (t) -> {
+                    return t.add(t);
+                };
+            } else {
+                f = (t) -> {
+                    return t.multiply(t);
+                };
+            }
+
+        } else {
+            final BigInteger bi = BigInteger.valueOf(Long.parseLong(split[1]));
+            if (split[0].equals("+")) {
+                f = (t) -> {
+                    return t.add(bi);
+                };
+            } else {
+                f = (t) -> {
+                    return t.multiply(bi);
+                };
+            }
+        }
+        builder.withOperation(f);
 
         in = input.get(3).trim();
         sub = in.substring(TEST_LENGTH);
-        builder.withTestDivider(Integer.parseInt(sub));
+        builder.withTestDivider(BigInteger.valueOf(Long.valueOf(sub)));
 
         in = input.get(4).trim();
         sub = in.substring(TEST_TRUE_LENGTH);

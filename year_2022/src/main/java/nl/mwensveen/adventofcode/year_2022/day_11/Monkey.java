@@ -1,31 +1,33 @@
 package nl.mwensveen.adventofcode.year_2022.day_11;
 
 import com.google.common.base.MoreObjects;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class Monkey {
     private final Integer number;
-    private final List<Integer> items;
-    private final Operation operation;
-    private final Integer testDivider;
-    private final Integer testTrueMonkey;
-    private final Integer testFalseMonkey;
-    private int inspectedItems;
+    private List<BigInteger> items;
+    private final Function<BigInteger, BigInteger> operation;
+    private final BigInteger testDivider;
+    private final int testTrueMonkey;
+    private final int testFalseMonkey;
+    private long inspectedItems;
 
     public Integer getNumber() {
         return number;
     }
 
-    public List<Integer> getItems() {
+    public List<BigInteger> getItems() {
         return items;
     }
 
-    public Operation getOperation() {
+    public Function<BigInteger, BigInteger> getOperation() {
         return operation;
     }
 
-    public Integer getTestDivider() {
+    public BigInteger getTestDivider() {
         return testDivider;
     }
 
@@ -37,7 +39,7 @@ public class Monkey {
         return testFalseMonkey;
     }
 
-    public int getInspectedItems() {
+    public long getInspectedItems() {
         return inspectedItems;
     }
 
@@ -56,9 +58,9 @@ public class Monkey {
 
     public static class Builder {
         private Integer number;
-        private List<Integer> items = new ArrayList<Integer>();
-        private Operation operation;
-        private Integer testDivider;
+        private List<BigInteger> items = new ArrayList<BigInteger>();
+        private Function<BigInteger, BigInteger> operation;
+        private BigInteger testDivider;
         private Integer testTrueMonkey;
         private Integer testFalseMonkey;
 
@@ -67,7 +69,7 @@ public class Monkey {
             return this;
         }
 
-        public Builder withItems(List<Integer> items) {
+        public Builder withItems(List<BigInteger> items) {
             if (items == null) {
                 throw new IllegalArgumentException("items is null");
             }
@@ -75,25 +77,17 @@ public class Monkey {
             return this;
         }
 
-        public Builder addItems(List<Integer> itemsElements) {
-            if (itemsElements == null) {
-                throw new IllegalArgumentException("itemsElements is null");
-            }
-            this.items.addAll(itemsElements);
-            return this;
-        }
-
-        public Builder addItems(Integer itemsElement) {
+        public Builder addItems(BigInteger itemsElement) {
             this.items.add(itemsElement);
             return this;
         }
 
-        public Builder withOperation(Operation operation) {
+        public Builder withOperation(Function<BigInteger, BigInteger> operation) {
             this.operation = operation;
             return this;
         }
 
-        public Builder withTestDivider(Integer testDivider) {
+        public Builder withTestDivider(BigInteger testDivider) {
             this.testDivider = testDivider;
             return this;
         }
@@ -115,7 +109,7 @@ public class Monkey {
 
     public void clearItems() {
         inspectedItems += items.size();
-        items.clear();
+        items = new ArrayList<>();
     }
 
     @Override

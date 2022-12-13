@@ -1,5 +1,6 @@
 package nl.mwensveen.adventofcode.year_2022.day_11;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -55,10 +56,10 @@ public class MonkeyParserTest {
 
         assertEquals(0, monkey.getNumber());
         assertEquals(2, monkey.getItems().size());
-        assertTrue(monkey.getItems().contains(75));
-        assertTrue(monkey.getItems().contains(63));
-        assertEquals(new Operation("*", "3"), monkey.getOperation());
-        assertEquals(11, monkey.getTestDivider());
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(75L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(63L)));
+        // assertEquals(new Operation("*", null, BigInteger.valueOf(3)), monkey.getOperation());
+        assertEquals(BigInteger.valueOf(11), monkey.getTestDivider());
         assertEquals(7, monkey.getTestTrueMonkey());
         assertEquals(2, monkey.getTestFalseMonkey());
     }

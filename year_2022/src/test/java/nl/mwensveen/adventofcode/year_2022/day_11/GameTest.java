@@ -1,5 +1,6 @@
 package nl.mwensveen.adventofcode.year_2022.day_11;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -43,26 +44,26 @@ public class GameTest {
         List<Monkey> monkeys = monkeyParser.parseMonkeys(INPUT_ALL.lines().toList());
 
         Game game = new Game();
-        game.play(monkeys, 1);
+        game.play(monkeys, 1, 3);
 
         assertEquals(4, monkeys.size());
         Monkey monkey = monkeys.get(0);
         assertEquals(2, monkey.getInspectedItems());
         assertEquals(4, monkey.getItems().size());
-        assertTrue(monkey.getItems().contains(20));
-        assertTrue(monkey.getItems().contains(23));
-        assertTrue(monkey.getItems().contains(27));
-        assertTrue(monkey.getItems().contains(26));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(20L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(23L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(27L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(26L)));
 
         monkey = monkeys.get(1);
         assertEquals(4, monkey.getInspectedItems());
         assertEquals(6, monkey.getItems().size());
-        assertTrue(monkey.getItems().contains(2080));
-        assertTrue(monkey.getItems().contains(25));
-        assertTrue(monkey.getItems().contains(167));
-        assertTrue(monkey.getItems().contains(207));
-        assertTrue(monkey.getItems().contains(401));
-        assertTrue(monkey.getItems().contains(1046));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(2080L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(25L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(167L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(207L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(401L)));
+        assertTrue(monkey.getItems().contains(BigInteger.valueOf(1046L)));
 
         monkey = monkeys.get(2);
         assertEquals(3, monkey.getInspectedItems());
@@ -79,7 +80,7 @@ public class GameTest {
         List<Monkey> monkeys = monkeyParser.parseMonkeys(INPUT_ALL.lines().toList());
 
         Game game = new Game();
-        game.play(monkeys, 20);
+        game.play(monkeys, 20, 3);
 
         Monkey monkey = monkeys.get(0);
         assertEquals(101, monkey.getInspectedItems());
@@ -92,12 +93,46 @@ public class GameTest {
     }
 
     @Test
+    public void testPlay1NoDivide() {
+        List<Monkey> monkeys = monkeyParser.parseMonkeys(INPUT_ALL.lines().toList());
+
+        Game game = new Game();
+        game.play(monkeys, 1, 1);
+
+        Monkey monkey = monkeys.get(0);
+        assertEquals(2, monkey.getInspectedItems());
+        monkey = monkeys.get(1);
+        assertEquals(4, monkey.getInspectedItems());
+        monkey = monkeys.get(2);
+        assertEquals(3, monkey.getInspectedItems());
+        monkey = monkeys.get(3);
+        assertEquals(6, monkey.getInspectedItems());
+    }
+
+    @Test
+    public void testPlay20NoDivide() {
+        List<Monkey> monkeys = monkeyParser.parseMonkeys(INPUT_ALL.lines().toList());
+
+        Game game = new Game();
+        game.play(monkeys, 20, 1);
+
+        Monkey monkey = monkeys.get(0);
+        // assertEquals(99, monkey.getInspectedItems());
+        monkey = monkeys.get(1);
+        // assertEquals(97, monkey.getInspectedItems());
+        monkey = monkeys.get(2);
+        // assertEquals(8, monkey.getInspectedItems());
+        monkey = monkeys.get(3);
+        // assertEquals(103, monkey.getInspectedItems());
+    }
+
+    @Test
     public void testCalculateMonkeyBusiness() {
         List<Monkey> monkeys = monkeyParser.parseMonkeys(INPUT_ALL.lines().toList());
 
         Game game = new Game();
-        game.play(monkeys, 20);
-        int monkeyBusiness = game.calculateMonkeyBusiness(monkeys);
+        game.play(monkeys, 20, 3);
+        long monkeyBusiness = game.calculateMonkeyBusiness(monkeys);
         assertEquals(10605, monkeyBusiness);
     }
 }

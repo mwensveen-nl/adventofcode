@@ -19,14 +19,18 @@ public class MonkeyInTheMiddleSolution extends AbstractTimedSolution {
     protected void part1() {
         List<Monkey> monkeys = monkeyParser.parseMonkeys(input);
         game = new Game();
-        game.play(monkeys, 20);
-        int monkeyBusiness = game.calculateMonkeyBusiness(monkeys);
+        game.play(monkeys, 20, 3);
+        long monkeyBusiness = game.calculateMonkeyBusiness(monkeys);
         System.out.println("The level of monkey business after 20 rounds of stuff-slinging simian shenanigans: " + monkeyBusiness);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        List<Monkey> monkeys = monkeyParser.parseMonkeys(input);
+        game = new Game();
+        game.play(monkeys, 10000, 1);
+        long monkeyBusiness = game.calculateMonkeyBusiness(monkeys);
+        System.out.println("The level of monkey business after 10000 rounds: " + monkeyBusiness);
 
     }
 
