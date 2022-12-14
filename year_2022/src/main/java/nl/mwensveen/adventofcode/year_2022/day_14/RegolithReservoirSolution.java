@@ -18,13 +18,17 @@ public class RegolithReservoirSolution extends AbstractTimedSolution {
         RockParser rockParser = new RockParser();
         Cave cave = rockParser.parse(input);
         SandFlow sandFlow = new SandFlow();
-        int sands = sandFlow.flowSand(cave);
+        int sands = sandFlow.flowSandInfinite(cave);
         System.out.println("Number of units of sand that come to rest before sand starts flowing into the abyss below: " + sands);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        RockParser rockParser = new RockParser();
+        Cave cave = rockParser.parse(input);
+        SandFlow sandFlow = new SandFlow();
+        int sands = sandFlow.flowSandWithBottom(cave);
+        System.out.println("Number of units of sand that come to rest until the source of the sand becomes blocked: " + sands);
 
     }
 

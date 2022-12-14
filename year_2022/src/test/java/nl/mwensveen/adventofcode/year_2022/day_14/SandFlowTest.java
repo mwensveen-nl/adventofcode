@@ -11,12 +11,21 @@ public class SandFlowTest {
                     """;
 
     @Test
-    public void testFlowSand() {
+    public void testFlowSandInfinite() {
         RockParser parser = new RockParser();
         Cave cave = parser.parse(input.lines().toList());
         SandFlow sandFlow = new SandFlow();
-        int sands = sandFlow.flowSand(cave);
+        int sands = sandFlow.flowSandInfinite(cave);
         assertEquals(24, sands);
+    }
+
+    @Test
+    public void testFlowSandWithBottom() {
+        RockParser parser = new RockParser();
+        Cave cave = parser.parse(input.lines().toList());
+        SandFlow sandFlow = new SandFlow();
+        int sands = sandFlow.flowSandWithBottom(cave);
+        assertEquals(93, sands);
     }
 
 }
