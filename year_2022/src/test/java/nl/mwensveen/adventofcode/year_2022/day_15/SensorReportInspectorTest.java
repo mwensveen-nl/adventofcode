@@ -1,5 +1,6 @@
 package nl.mwensveen.adventofcode.year_2022.day_15;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +52,16 @@ public class SensorReportInspectorTest {
         SensorReportInspector inspector = new SensorReportInspector();
         long emptyPositions = inspector.findEmptyPositions(list, 10);
         assertEquals(26, emptyPositions);
+    }
+
+    @Test
+    public void testFindBeacon() {
+        SensorParser parser = new SensorParser();
+        List<Sensor> list = parser.parse(INPUT.lines().toList());
+
+        SensorReportInspector inspector = new SensorReportInspector();
+        BigInteger findBeacon = inspector.findBeacon(list, 20);
+        assertEquals(56000011, findBeacon.intValue());
     }
 
 }
