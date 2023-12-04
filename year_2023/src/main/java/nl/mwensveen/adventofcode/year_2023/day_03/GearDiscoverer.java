@@ -21,47 +21,31 @@ public class GearDiscoverer {
 	}
 
 	private Long rowsGearPower(Integer rowIndex, Table<Integer, Integer, String> schematic, Table<Integer, Integer, String> partsTable) {
-		Long sum = 0L;
-		Map<Integer, String> row = schematic.row(rowIndex);
-		for (Entry<Integer, String> entry : row.entrySet()) {
-			if ("*".equals(entry.getValue())) {
-				if (isGear(rowIndex, entry.getKey(), partsTable)) {
-					sum += calculateGearRatio(rowIndex, entry.getKey(), schematic);
-				}
-			}
-		}
-		return sum;
+		return schematic.row(rowIndex).entrySet().stream()
+				.filter(entry -> "*".equals(entry.getValue()))
+				.filter(entry -> isGear(rowIndex, entry.getKey(), partsTable))
+				.map(entry -> calculateGearRatio(rowIndex, entry.getKey(), schematic))
+				.collect(Collectors.summingLong(i -> i));
 	}
 
 	private long calculateGearRatio(Integer rowIndex, Integer colIndex, Table<Integer, Integer, String> schematic) {
 		long ratio = 1;
-		int above = rowIndex - 1;
-		if (digits.contains(schematic.get(above, colIndex - 1))) {
-			ratio *= partNumber(above, colIndex - 1, schematic);
-		}
-		if (digits.contains(schematic.get(above, colIndex)) && !digits.contains(schematic.get(above, colIndex - 1))) {
-			ratio *= partNumber(above, colIndex, schematic);
-		}
-		if (digits.contains(schematic.get(above, colIndex + 1)) && !digits.contains(schematic.get(above, colIndex))) {
-			ratio *= partNumber(above, colIndex + 1, schematic);
-		}
+		ratio *= calculateGearRatioForGear(colIndex, schematic, rowIndex - 1);
+		ratio *= calculateGearRatioForGear(colIndex, schematic, rowIndex);
+		ratio *= calculateGearRatioForGear(colIndex, schematic, rowIndex + 1);
+		return ratio;
+	}
 
-		if (digits.contains(schematic.get(rowIndex, colIndex - 1))) {
-			ratio *= partNumber(rowIndex, colIndex - 1, schematic);
+	private long calculateGearRatioForGear(Integer colIndex, Table<Integer, Integer, String> schematic, int row) {
+		long ratio = 1;
+		if (digits.contains(schematic.get(row, colIndex - 1))) {
+			ratio *= partNumber(row, colIndex - 1, schematic);
 		}
-		if (digits.contains(schematic.get(rowIndex, colIndex + 1))) {
-			ratio *= partNumber(rowIndex, colIndex + 1, schematic);
+		if (digits.contains(schematic.get(row, colIndex)) && !digits.contains(schematic.get(row, colIndex - 1))) {
+			ratio *= partNumber(row, colIndex, schematic);
 		}
-
-		int below = rowIndex + 1;
-		if (digits.contains(schematic.get(below, colIndex - 1))) {
-			ratio *= partNumber(below, colIndex - 1, schematic);
-		}
-		if (digits.contains(schematic.get(below, colIndex)) && !digits.contains(schematic.get(below, colIndex - 1))) {
-			ratio *= partNumber(below, colIndex, schematic);
-		}
-		if (digits.contains(schematic.get(below, colIndex + 1)) && !digits.contains(schematic.get(below, colIndex))) {
-			ratio *= partNumber(below, colIndex + 1, schematic);
+		if (digits.contains(schematic.get(row, colIndex + 1)) && !digits.contains(schematic.get(row, colIndex))) {
+			ratio *= partNumber(row, colIndex + 1, schematic);
 		}
 		return ratio;
 	}
@@ -82,7 +66,16 @@ public class GearDiscoverer {
 
 	private boolean isGear(Integer rowIndex, Integer colIndex, Table<Integer, Integer, String> partsTable) {
 		int p = 0;
-		int above = rowIndex - 1;
+
+		p += adjacentPart(colIndex, partsTable, rowIndex - 1);
+		p += adjacentPart(colIndex, partsTable, rowIndex);
+		p += adjacentPart(colIndex, partsTable, rowIndex + 1);
+
+		return p == 2;
+	}
+
+	private int adjacentPart(Integer colIndex, Table<Integer, Integer, String> partsTable, int above) {
+		int p = 0;
 		if (PARTS_SYMBOL.equals(partsTable.get(above, colIndex - 1))) {
 			p++;
 		}
@@ -92,26 +85,7 @@ public class GearDiscoverer {
 		if (PARTS_SYMBOL.equals(partsTable.get(above, colIndex + 1)) && !PARTS_SYMBOL.equals(partsTable.get(above, colIndex))) {
 			p++;
 		}
-
-		if (PARTS_SYMBOL.equals(partsTable.get(rowIndex, colIndex - 1))) {
-			p++;
-		}
-		if (PARTS_SYMBOL.equals(partsTable.get(rowIndex, colIndex + 1))) {
-			p++;
-		}
-
-		int below = rowIndex + 1;
-		if (PARTS_SYMBOL.equals(partsTable.get(below, colIndex - 1))) {
-			p++;
-		}
-		if (PARTS_SYMBOL.equals(partsTable.get(below, colIndex)) && !PARTS_SYMBOL.equals(partsTable.get(below, colIndex - 1))) {
-			p++;
-		}
-		if (PARTS_SYMBOL.equals(partsTable.get(below, colIndex + 1)) && !PARTS_SYMBOL.equals(partsTable.get(below, colIndex))) {
-			p++;
-		}
-
-		return p == 2;
+		return p;
 	}
 
 	private Table<Integer, Integer, String> replaceInRow(Integer rowIndex, Table<Integer, Integer, String> schematic,

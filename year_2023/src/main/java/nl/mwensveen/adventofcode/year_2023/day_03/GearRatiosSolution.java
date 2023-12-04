@@ -31,6 +31,7 @@ public class GearRatiosSolution extends AbstractTimedSolution {
 		GearDiscoverer gearDiscoverer = new GearDiscoverer();
 		Long gearRatios = gearDiscoverer.discoverGears(engineSchematic);
 		System.out.println("The sum of all of the gear ratios in your engine schematic: " + gearRatios);
+		// 75519888
 	}
 
 	public static void main(String[] args) {
