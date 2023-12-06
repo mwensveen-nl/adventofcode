@@ -50,7 +50,7 @@ public class LocationLocatorTest {
 
 	@Test
 	public void testFindLowestLocationWithRanges() {
-		AlmanacSeedRanges almanac = new AlmanacParser().parseInputToSeedRagnes(input.lines().toList());
+		AlmanacSeedRanges almanac = new AlmanacParser().parseInputToSeedRanges(input.lines().toList());
 		long lowestLocation = new LocationLocator().findLowestLocationWithRanges(almanac);
 		assertEquals(46L, lowestLocation);
 	}
