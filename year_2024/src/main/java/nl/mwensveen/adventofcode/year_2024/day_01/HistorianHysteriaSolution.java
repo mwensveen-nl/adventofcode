@@ -32,7 +32,6 @@ public class HistorianHysteriaSolution extends AbstractTimedSolution {
 
 	public static void main(String[] args) {
 		new HistorianHysteriaSolution().run();
-
 	}
 
 }
