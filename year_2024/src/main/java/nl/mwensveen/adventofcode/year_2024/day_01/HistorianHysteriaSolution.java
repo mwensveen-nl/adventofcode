@@ -9,6 +9,7 @@ public class HistorianHysteriaSolution extends AbstractTimedSolution {
 
 	private List<String> input;
 	private List<List<Integer>> lists;
+	private LocationListComparator locationListComparator = new LocationListComparator();
 
 	@Override
 	protected void init() {
@@ -19,13 +20,14 @@ public class HistorianHysteriaSolution extends AbstractTimedSolution {
 
 	@Override
 	protected void part1() {
-		LocationListComparator locationListComparator = new LocationListComparator();
 		Integer result = locationListComparator.compareLists(lists.getFirst(), lists.getLast());
 		System.out.println("The total distance between the two lists: " + result);
 	}
 
 	@Override
 	protected void part2() {
+		Integer result = locationListComparator.similarityScore(lists.getFirst(), lists.getLast());
+		System.out.println("The similarity score: " + result);
 	}
 
 	public static void main(String[] args) {

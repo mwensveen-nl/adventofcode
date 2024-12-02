@@ -26,4 +26,14 @@ public class LocationListComparatorTest {
 		assertEquals(11, result);
 	}
 
+	@Test
+	public void testSimilarityScore() {
+		LocationListParser locationListParser = new LocationListParser();
+		List<List<Integer>> lists = locationListParser.readLists(input.lines().toList());
+
+		LocationListComparator listComparator = new LocationListComparator();
+		Integer result = listComparator.similarityScore(lists.getFirst(), lists.getLast());
+		assertEquals(31, result);
+	}
+
 }
