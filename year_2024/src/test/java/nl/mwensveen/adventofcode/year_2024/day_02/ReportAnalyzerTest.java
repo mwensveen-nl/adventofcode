@@ -26,4 +26,14 @@ class ReportAnalyzerTest {
 		assertEquals(2, result);
 	}
 
+	@Test
+	public void testValidWithDampener() {
+		ReportParser parser = new ReportParser();
+		List<List<Integer>> reports = parser.parseReports(input.lines().toList());
+
+		ReportAnalyzer reportAnalyzer = new ReportAnalyzer();
+		long result = reportAnalyzer.analyzeReportsWithDampener(reports);
+		assertEquals(4, result);
+	}
+
 }

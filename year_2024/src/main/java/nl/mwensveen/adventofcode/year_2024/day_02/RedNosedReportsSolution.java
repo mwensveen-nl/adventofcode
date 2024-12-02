@@ -21,13 +21,13 @@ public class RedNosedReportsSolution extends AbstractTimedSolution {
 	@Override
 	protected void part1() {
 		long analyzeReports = reportAnalyzer.analyzeReports(reports);
-		System.out.println("Numbert of reports that are safe: " + analyzeReports);
+		System.out.println("Number of reports that are safe: " + analyzeReports);
 	}
 
 	@Override
 	protected void part2() {
-		// TODO Auto-generated method stub
-
+		long analyzeReports = reportAnalyzer.analyzeReportsWithDampener(reports);
+		System.out.println("Number of reports that are safe with Problem Dampener: " + analyzeReports);
 	}
 
 	public static void main(String[] args) {
