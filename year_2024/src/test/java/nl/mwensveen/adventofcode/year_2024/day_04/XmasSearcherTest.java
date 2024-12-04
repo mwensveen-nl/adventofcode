@@ -1,35 +1,34 @@
 package nl.mwensveen.adventofcode.year_2024.day_04;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.google.common.collect.Table;
 import org.junit.jupiter.api.Test;
 
-import com.google.common.collect.Table;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class XmasSearcherTest {
 
-	private static String input = """
-			MMMSXXMASM
-			MSAMXMSMSA
-			AMXSXMAAMM
-			MSAMASMSMX
-			XMASAMXAMM
-			XXAMMXXAMA
-			SMSMSASXSS
-			SAXAMASAAA
-			MAMMMXMMMM
-			MXMXAXMASX
-						""";
+    private static String input = """
+            MMMSXXMASM
+            MSAMXMSMSA
+            AMXSXMAAMM
+            MSAMASMSMX
+            XMASAMXAMM
+            XXAMMXXAMA
+            SMSMSASXSS
+            SAXAMASAAA
+            MAMMMXMMMM
+            MXMXAXMASX
+            			""";
 
-	@Test
-	public void testSearch() {
-		WordSearchInputParser parser = new WordSearchInputParser();
-		Table<Integer, Integer, Character> table = parser.parse(input.lines().toList());
+    @Test
+    public void testSearchXmas() {
+        WordSearchInputParser parser = new WordSearchInputParser();
+        Table<Integer, Integer, Character> table = parser.parse(input.lines().toList());
 
-		XmasSearcher searcher = new XmasSearcher();
-		int count = searcher.search(table);
+        XmasSearcher searcher = new XmasSearcher();
+        int count = searcher.searchXmas(table);
 
-		assertEquals(2, count);
-	}
+        assertEquals(18, count);
+    }
 
 }
