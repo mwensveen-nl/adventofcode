@@ -19,6 +19,18 @@ class XmasSearcherTest {
             MAMMMXMMMM
             MXMXAXMASX
             			""";
+    private static String input2 = """
+            .M.S......
+            ..A..MSMS.
+            .M.S.MAA..
+            ..A.ASMSM.
+            .M.S.M....
+            ..........
+            S.S.S.S.S.
+            .A.A.A.A..
+            M.M.M.M.M.
+            ..........
+                        """;
 
     @Test
     public void testSearchXmas() {
@@ -29,6 +41,17 @@ class XmasSearcherTest {
         int count = searcher.searchXmas(table);
 
         assertEquals(18, count);
+    }
+
+    @Test
+    public void testCheckCrossMas() {
+        WordSearchInputParser parser = new WordSearchInputParser();
+        Table<Integer, Integer, Character> table = parser.parse(input2.lines().toList());
+
+        XmasSearcher searcher = new XmasSearcher();
+        int count = searcher.searchCrossMas(table);
+
+        assertEquals(9, count);
     }
 
 }

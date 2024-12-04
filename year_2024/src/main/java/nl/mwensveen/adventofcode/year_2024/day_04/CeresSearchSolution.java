@@ -26,8 +26,9 @@ public class CeresSearchSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        XmasSearcher searcher = new XmasSearcher();
+        int result = searcher.searchCrossMas(table);
+        System.out.println("Number of times does X-MAS appears: " + result);
     }
 
     public static void main(String[] args) {
