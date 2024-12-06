@@ -1,6 +1,7 @@
 package nl.mwensveen.adventofcode.year_2024.day_05;
 
 import com.google.common.collect.Multimap;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,5 +22,16 @@ public class UpdatePrinter {
         }
 
         return true;
+    }
+
+    public long fixUpdates(Multimap<Integer, Integer> rules, List<List<Integer>> updates) {
+        return updates.stream().filter(l -> !isValid(l, rules)).map(l -> fix(l, rules)).mapToInt(u -> u.get((u.size() - 1) / 2)).sum();
+
+    }
+
+    private List<Integer> fix(List<Integer> l, Multimap<Integer, Integer> rules) {
+        ArrayList<Integer> nl = new ArrayList(l);
+        nl.sort(new updateComparator(rules));
+        return nl;
     }
 }

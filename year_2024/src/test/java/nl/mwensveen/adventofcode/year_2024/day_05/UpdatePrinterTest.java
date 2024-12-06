@@ -49,4 +49,15 @@ class UpdatePrinterTest {
         assertEquals(143, result);
     }
 
+    @Test
+    public void testFixUpdates() {
+        PrinterParser parser = new PrinterParser();
+        Multimap<Integer, Integer> rules = parser.parseRules(input.lines().toList());
+        List<List<Integer>> updates = parser.parseUpdates(input.lines().toList());
+
+        UpdatePrinter checker = new UpdatePrinter();
+        long result = checker.fixUpdates(rules, updates);
+        assertEquals(123, result);
+    }
+
 }

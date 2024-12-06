@@ -24,11 +24,13 @@ public class PrintQueueSolution extends AbstractTimedSolution {
         UpdatePrinter updateChecker = new UpdatePrinter();
         long result = updateChecker.checkUpdates(rules, updates);
         System.out.println("Result you get if you add up the middle page number from those correctly-ordered updates: " + result);
-
     }
 
     @Override
     protected void part2() {
+        UpdatePrinter updateChecker = new UpdatePrinter();
+        long result = updateChecker.fixUpdates(rules, updates);
+        System.out.println("Result you get if you add up the middle page numbers after correctly ordering just those updates: " + result);
         // TODO Auto-generated method stub
 
     }
