@@ -21,7 +21,7 @@ public class PrintQueueSolution extends AbstractTimedSolution {
 
     @Override
     protected void part1() {
-        UpdateChecker updateChecker = new UpdateChecker();
+        UpdatePrinter updateChecker = new UpdatePrinter();
         long result = updateChecker.checkUpdates(rules, updates);
         System.out.println("Result you get if you add up the middle page number from those correctly-ordered updates: " + result);
 

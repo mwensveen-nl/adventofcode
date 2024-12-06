@@ -44,7 +44,7 @@ class UpdatePrinterTest {
         Multimap<Integer, Integer> rules = parser.parseRules(input.lines().toList());
         List<List<Integer>> updates = parser.parseUpdates(input.lines().toList());
 
-        UpdateChecker checker = new UpdateChecker();
+        UpdatePrinter checker = new UpdatePrinter();
         long result = checker.checkUpdates(rules, updates);
         assertEquals(143, result);
     }
