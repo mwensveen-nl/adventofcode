@@ -1,6 +1,5 @@
 package nl.mwensveen.adventofcode.year_2024.day_06;
 
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,56 +9,56 @@ class GuardTest {
     @Test
     public void testInspect() {
         Guard g = new Guard(2, 3);
-        List<Integer> pos = g.inspect();
-        assertEquals(1, pos.getFirst());
-        assertEquals(3, pos.getLast());
+        Position pos = g.inspect();
+        assertEquals(1, pos.row());
+        assertEquals(3, pos.col());
 
         g.turnRight();
         pos = g.inspect();
-        assertEquals(2, pos.getFirst());
-        assertEquals(4, pos.getLast());
+        assertEquals(2, pos.row());
+        assertEquals(4, pos.col());
 
         g.turnRight();
         pos = g.inspect();
-        assertEquals(3, pos.getFirst());
-        assertEquals(3, pos.getLast());
+        assertEquals(3, pos.row());
+        assertEquals(3, pos.col());
 
         g.turnRight();
         pos = g.inspect();
-        assertEquals(2, pos.getFirst());
-        assertEquals(2, pos.getLast());
+        assertEquals(2, pos.row());
+        assertEquals(2, pos.col());
 
         g.turnRight();
         pos = g.inspect();
-        assertEquals(1, pos.getFirst());
-        assertEquals(3, pos.getLast());
+        assertEquals(1, pos.row());
+        assertEquals(3, pos.col());
     }
 
     @Test
     public void testStep() {
         Guard g = new Guard(2, 3);
-        List<Integer> pos = g.step();
-        assertEquals(1, pos.getFirst());
-        assertEquals(3, pos.getLast());
+        Position pos = g.step();
+        assertEquals(1, pos.row());
+        assertEquals(3, pos.col());
 
         g.turnRight();
         pos = g.step();
-        assertEquals(1, pos.getFirst());
-        assertEquals(4, pos.getLast());
+        assertEquals(1, pos.row());
+        assertEquals(4, pos.col());
 
         g.turnRight();
         pos = g.step();
-        assertEquals(2, pos.getFirst());
-        assertEquals(4, pos.getLast());
+        assertEquals(2, pos.row());
+        assertEquals(4, pos.col());
 
         g.turnRight();
         pos = g.step();
-        assertEquals(2, pos.getFirst());
-        assertEquals(3, pos.getLast());
+        assertEquals(2, pos.row());
+        assertEquals(3, pos.col());
 
         g.turnRight();
         pos = g.step();
-        assertEquals(1, pos.getFirst());
-        assertEquals(3, pos.getLast());
+        assertEquals(1, pos.row());
+        assertEquals(3, pos.col());
     }
 }

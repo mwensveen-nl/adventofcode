@@ -1,7 +1,6 @@
 package nl.mwensveen.adventofcode.year_2024.day_06;
 
 import com.google.common.collect.Table;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class GuardMover {
@@ -12,16 +11,17 @@ public class GuardMover {
 
         boolean keepWalking = true;
         while (keepWalking) {
-            List<Integer> pos = guard.inspect();
-            if (pos.getFirst() < 0 || pos.getFirst() == rows || pos.getLast() < 0 || pos.getLast() == cols) {
+            Position pos = guard.inspect();
+            if (pos.row() < 0 || pos.row() == rows || pos.col() < 0 || pos.col() == cols) {
                 keepWalking = false;
-            } else if (lm.get(pos.getFirst(), pos.getLast()).equals(Cell.OBSTRUCTION)) {
+            } else if (lm.get(pos.row(), pos.col()).equals(Cell.OBSTRUCTION)) {
                 guard.turnRight();
             } else {
-                lm.put(pos.getFirst(), pos.getLast(), Cell.VISITED);
+                lm.put(pos.row(), pos.col(), Cell.VISITED);
                 guard.step();
             }
         }
+
         return IntStream.range(0, rows)
                 .map(r -> {
                     return IntStream.range(0, cols)

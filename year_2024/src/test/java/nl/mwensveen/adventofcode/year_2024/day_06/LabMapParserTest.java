@@ -1,7 +1,6 @@
 package nl.mwensveen.adventofcode.year_2024.day_06;
 
 import com.google.common.collect.Table;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,9 +35,9 @@ class LabMapParserTest {
         LabMapParser lmp = new LabMapParser();
         Table<Integer, Integer, Cell> lm = lmp.parse(input.lines().toList());
         Guard guard = lmp.findGuard(lm);
-        List<Integer> pos = guard.inspect();
-        assertEquals(5, pos.getFirst());
-        assertEquals(4, pos.getLast());
+        Position pos = guard.inspect();
+        assertEquals(5, pos.row());
+        assertEquals(4, pos.col());
     }
 
 }
