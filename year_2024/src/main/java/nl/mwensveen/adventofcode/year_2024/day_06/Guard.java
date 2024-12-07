@@ -10,17 +10,25 @@ public class Guard {
     }
 
     public Position inspect() {
-        return position.step(direction);
+        return getPosition().step(getDirection());
     }
 
     public Position step() {
         position = inspect();
-        return position;
+        return getPosition();
     }
 
     public void turnRight() {
-        direction = direction.turn();
+        direction = getDirection().turn();
 
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
 }

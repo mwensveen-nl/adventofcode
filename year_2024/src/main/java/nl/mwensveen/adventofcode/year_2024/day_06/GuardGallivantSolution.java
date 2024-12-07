@@ -29,8 +29,13 @@ public class GuardGallivantSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        Table<Integer, Integer, Cell> lmMoved = lm;
+        init();
 
+        GuardMover guardMover = new GuardMover();
+
+        int count = guardMover.placeObstructionsAndMove(lmMoved, guard);
+        System.out.println("Number of different positions you can choose for this obstruction: " + count);
     }
 
     public static void main(String[] args) {
