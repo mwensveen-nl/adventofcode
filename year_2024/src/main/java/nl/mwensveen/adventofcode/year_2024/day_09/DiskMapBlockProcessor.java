@@ -15,7 +15,6 @@ public class DiskMapBlockProcessor {
 
         List<Integer> start = new ArrayList<>();
         List<Integer> end = new ArrayList<>();
-        System.out.println(start + " " + end);
         while (startId < endId) {
             Integer count = Integer.valueOf(Character.toString(cs[startId]));
             if (startId % 2 == 0) {
@@ -26,11 +25,9 @@ public class DiskMapBlockProcessor {
                 addRepeat(start, count, Integer.MIN_VALUE);
             }
             startId++;
-            System.out.println(startId + " - " + start);
             int freeIndex = start.indexOf(Integer.MIN_VALUE);
             while (freeIndex >= 0) {
                 while (end.isEmpty() && startId < endId) {
-                    System.out.println(Character.toString(cs[endId]));
                     count = Integer.valueOf(Character.toString(cs[endId]));
                     if (endId % 2 == 0) {
                         // file
@@ -46,7 +43,6 @@ public class DiskMapBlockProcessor {
                 end.removeLast();
                 start.set(freeIndex, r);
                 freeIndex = start.indexOf(Integer.MIN_VALUE);
-                System.out.println("        " + endId + " - " + end);
             }
             for (int i = 0; i < start.size(); i++) {
                 Integer s = start.get(i);
@@ -62,7 +58,6 @@ public class DiskMapBlockProcessor {
             if (!".".equals(s)) {
                 checksum += s * blockId;
                 blockId++;
-                System.out.println(checksum);
             }
         }
         return checksum;

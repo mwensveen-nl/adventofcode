@@ -20,8 +20,8 @@ public class DiskFragmenterSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        long result = new DiskMapFileProcessor().process(input);
+        System.out.println("The resulting filesystem checksum: " + result);
     }
 
     public static void main(String[] args) {
