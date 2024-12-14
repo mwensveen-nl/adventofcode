@@ -18,13 +18,14 @@ public class PlutonianPebblesSolution extends AbstractTimedSolution {
 
     @Override
     protected void part1() {
-        int result = new Blinking().blink(stones);
+        long result = new Blinking().blink(stones, 25);
         System.out.println("Number of stones that you have after blinking 25 times: " + result);
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        long result = new Blinking().blink(stones, 75);
+        System.out.println("Number of stones that you have after blinking 75 times: " + result);
 
     }
 
