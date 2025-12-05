@@ -27,4 +27,12 @@ class PasswordCalculatorTest {
         assertEquals(3, pw);
     }
 
+    @Test
+    public void calculateNewMethod() {
+        List<Rotation> rotations = input.lines().map(Rotation::new).toList();
+        PasswordCalculator pc = new PasswordCalculator();
+        long pw = pc.calculateNewMethod(rotations);
+        assertEquals(6, pw);
+    }
+
 }

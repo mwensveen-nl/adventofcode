@@ -22,8 +22,8 @@ public class SecretEntranceSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        long pwd = new PasswordCalculator().calculateNewMethod(input);
+        System.out.println("The actual password to open the door, Using password method 0x434C49434B is: " + pwd);
     }
 
     public static void main(String[] args) {
