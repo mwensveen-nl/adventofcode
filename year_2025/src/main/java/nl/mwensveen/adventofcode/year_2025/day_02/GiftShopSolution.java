@@ -20,13 +20,12 @@ public class GiftShopSolution extends AbstractTimedSolution {
     protected void part1() {
         BigInteger sum = new InvalidNumberFinder().findDoubles(ranges);
         System.out.println("If you add up all of the invalid IDs, you get: " + sum);
-
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        BigInteger sum = new InvalidNumberFinder().findRepeats(ranges);
+        System.out.println("If you add up all of the invalid IDs using the new ruless, you get: " + sum);
     }
 
     public static void main(String[] args) {

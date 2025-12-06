@@ -18,4 +18,12 @@ class InvalidNumberFinderTest {
         assertEquals(1227775554, count.intValue());
     }
 
+    @Test
+    public void findRepeats() {
+        List<Range> ranges = Arrays.asList(input.split(",")).stream().map(Range::new).toList();
+        InvalidNumberFinder inf = new InvalidNumberFinder();
+        BigInteger count = inf.findRepeats(ranges);
+        assertEquals(4174379265L, count.longValue());
+    }
+
 }
