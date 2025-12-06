@@ -10,4 +10,7 @@ public record IngredientRange(long start, long end) {
         return l >= start && l <= end;
     }
 
+    public long count() {
+        return end - start + 1;
+    }
 }

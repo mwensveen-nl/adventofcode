@@ -1,5 +1,6 @@
 package nl.mwensveen.adventofcode.year_2025.day_05;
 
+import java.math.BigInteger;
 import java.util.List;
 import nl.mwensveen.adventofcode.year_2025.AbstractTimedSolution;
 import nl.mwensveen.adventofcode.year_2025.FileReadHelper;
@@ -23,8 +24,9 @@ public class CafeteriaSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        Pair<List<IngredientRange>, List<Long>> pair = new IngredientListParser().parse(input);
+        BigInteger fresh = new FreshIngredientFinder().findFeshIdInRanges(pair.getValue0());
+        System.out.println("The number of ingredient IDs that are considered to be fresh according to the fresh ingredient ID ranges " + fresh);
     }
 
     public static void main(String[] args) {
