@@ -18,13 +18,12 @@ public class LobbySolution extends AbstractTimedSolution {
     protected void part1() {
         BigInteger detected = new MaxJoltageDetector().detect(input);
         System.out.println("The total output joltage is: " + detected);
-
     }
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        BigInteger detected = new MaxJoltageDetector().detect12(input);
+        System.out.println("The new total output joltage is: " + detected);
     }
 
     public static void main(String[] args) {

@@ -20,4 +20,11 @@ class MaxJoltageDetectorTest {
         assertEquals(BigInteger.valueOf(357L), joultage);
     }
 
+    @Test
+    public void maxJoltage12() {
+        MaxJoltageDetector mjd = new MaxJoltageDetector();
+        BigInteger joultage = mjd.detect12(input.lines().toList());
+        assertEquals(BigInteger.valueOf(3121910778619L), joultage);
+    }
+
 }

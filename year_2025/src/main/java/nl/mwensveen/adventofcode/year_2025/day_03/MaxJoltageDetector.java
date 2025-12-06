@@ -9,11 +9,26 @@ public class MaxJoltageDetector {
         return banks.stream().map(this::maxJoltage).reduce(BigInteger.ZERO, BigInteger::add);
     }
 
+    public BigInteger detect12(List<String> banks) {
+        return banks.stream().map(this::maxJoltage12).reduce(BigInteger.ZERO, BigInteger::add);
+    }
+
     private BigInteger maxJoltage(String bank) {
         char char1 = findHighestChar(bank.substring(0, bank.length() - 1));
         char char2 = findHighestChar(bank.substring(bank.indexOf(char1) + 1));
         return new BigInteger("" + char1 + char2);
 
+    }
+
+    private BigInteger maxJoltage12(String bank) {
+        String newBank = bank;
+        StringBuffer sb = new StringBuffer();
+        for (int i = 11; i >= 0; i--) {
+            char char1 = findHighestChar(newBank.substring(0, newBank.length() - i));
+            sb.append("" + char1);
+            newBank = newBank.substring(newBank.indexOf(char1) + 1);
+        }
+        return new BigInteger(sb.toString());
     }
 
     private char findHighestChar(String str) {
