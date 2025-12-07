@@ -24,8 +24,10 @@ public class TrashCompactorSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        List<List<String>> worksheet = new HomeWorksheetParser().parseCephalopod(input);
+        BigInteger result = new HomeWorkCalculatorCephalopod().calculate(worksheet);
+        System.out.println(
+                "The grand total found by adding together all of the answers to the individual problems, using the Cephalopod notation: " + result.longValue());
     }
 
     public static void main(String[] args) {

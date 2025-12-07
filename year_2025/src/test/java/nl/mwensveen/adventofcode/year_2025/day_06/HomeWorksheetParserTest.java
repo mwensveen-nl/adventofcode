@@ -1,8 +1,10 @@
 package nl.mwensveen.adventofcode.year_2025.day_06;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Table;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class HomeWorksheetParserTest {
@@ -38,4 +40,15 @@ class HomeWorksheetParserTest {
         assertEquals("+", worksheet.get(Integer.valueOf(3), Integer.valueOf(3)));
     }
 
+    @Test
+    public void parseCephalopod() {
+        List<String> list = input.lines().toList();
+        List<List<String>> worksheet = new HomeWorksheetParser().parseCephalopod(list);
+        assertEquals(4, worksheet.size());
+        assertTrue(worksheet.get(0).containsAll(List.of("123", " 45", "  6", "*  ")));
+        assertTrue(worksheet.get(1).containsAll(List.of("328", "64 ", "98 ", "+  ")));
+        assertTrue(worksheet.get(2).containsAll(List.of(" 51", "387", "215", "*  ")));
+        assertTrue(worksheet.get(3).containsAll(List.of("64 ", "23 ", "314", "+  ")));
+        System.out.println(worksheet);
+    }
 }
