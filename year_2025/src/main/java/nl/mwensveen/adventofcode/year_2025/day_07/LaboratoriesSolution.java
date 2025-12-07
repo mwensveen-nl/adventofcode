@@ -26,8 +26,13 @@ public class LaboratoriesSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        var tmp = new TachyonManifoldParser();
+        var manifold = tmp.parse(input);
+        var start = tmp.findStart(manifold);
 
+        var mover = new TachyonBeamQuantumMover();
+        var result = mover.moveDown(manifold, start);
+        System.out.println("Total number of different timelines a single tachyon particle end up on: " + result);
     }
 
     public static void main(String[] args) {
