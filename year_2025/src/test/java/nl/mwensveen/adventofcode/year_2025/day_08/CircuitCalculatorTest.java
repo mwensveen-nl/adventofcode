@@ -54,4 +54,14 @@ class CircuitCalculatorTest {
 
     }
 
+    @Test
+    public void calculateAll() {
+        var parser = new JunctionBoxesParser();
+        var coords = parser.parse(input.lines().toList());
+        List<Distance> distances = parser.toDistance(coords);
+
+        Distance d = new CircuitCalculator().calculateAll(distances, coords);
+        assertEquals(25272, d.one().x().intValue() * d.two().x().intValue());
+    }
+
 }

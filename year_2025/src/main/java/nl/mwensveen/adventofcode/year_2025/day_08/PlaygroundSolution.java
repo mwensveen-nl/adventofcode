@@ -29,7 +29,14 @@ public class PlaygroundSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
+        var parser = new JunctionBoxesParser();
+        var coords = parser.parse(input);
+        List<Distance> distances = parser.toDistance(coords);
+
+        CircuitCalculator circuitCalculator = new CircuitCalculator();
+        Distance dist = circuitCalculator.calculateAll(distances, coords);
+        System.out.println("If you multiply together the X coordinates of the last two junction boxes you need to connect, you get: "
+                + dist.one().x().intValue() * dist.two().x().intValue());
 
     }
 
