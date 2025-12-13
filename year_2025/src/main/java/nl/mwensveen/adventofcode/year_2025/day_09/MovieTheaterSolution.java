@@ -22,8 +22,9 @@ public class MovieTheaterSolution extends AbstractTimedSolution {
 
     @Override
     protected void part2() {
-        // TODO Auto-generated method stub
-
+        var tiles = input.stream().map(Tile::new).toList();
+        long size = new RedGreenTileRectangler().find(tiles);
+        System.out.println("The largest area of any rectangle you can make using only red and green tiles is: " + size);
     }
 
     public static void main(String[] args) {
