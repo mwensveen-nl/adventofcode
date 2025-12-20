@@ -9,8 +9,8 @@
 	</parent>
 	<artifactId>year_2025</artifactId>
 	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>25</maven.compiler.release>
+		<maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -51,4 +51,13 @@
 			<version>3.0.2</version> <!-- Or latest version -->
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</build>
 </project>
